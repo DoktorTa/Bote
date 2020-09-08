@@ -1,29 +1,51 @@
 package Command;
 
-
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 
+import Command.AbsCommand;
 
-public class ComStart{
+import java.util.logging.LogManager;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class ComStart extends AbsCommand {
+
+    private static final Logger Logs = LogManager.getLogManager().getLogger(ComStart.class.getName());
     private final AnonService mAnon;
 
-    ComStart()
+    public ComStart(AnonymosService anon){
+        super("start", "start using bot\n");
+        mAnon = anon;
+    }
+
+    @Override
+    public void execute(AbsSender absSender, User user, Chat chat, String[] strings){
+        /**
+         * Команда начала общения.
+         * @param absSender - отправляет ответ пользователю
+         * @param user - пользователь, который выполнил команду
+         * @param chat - чат бота и пользователя
+         * @param strings - аргументы, переданные с командой
+         */
+        String logs_str = "Start coamand initilaize: " + user.getUserName();
+        Logs.info(logs_str);
+
+        StringBuilder sb = new StringBuilder();
+
+    }
+
+    protected void sendMsg(Chat chat){
+        SendMessage messange = new SendMessage();
+        messange.setChatId()
+
+    }
 }
 
 
 public final class StartCommand extends AnonymizerCommand {
-
-    private final AnonymousService mAnonymouses;
-
-    // обязательно нужно вызвать конструктор суперкласса,
-    // передав в него имя и описание команды
-    public StartCommand(AnonymousService anonymouses) {
-        super("start", "start using bot\n");
-        mAnonymouses = anonymouses;
-    }
 
     /**
      * реализованный метод класса BotCommand, в котором обрабатывается команда, введенная пользователем

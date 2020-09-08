@@ -1,3 +1,4 @@
+package Command;
 
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -9,11 +10,11 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
-abstract class AnonCommand extends BotCommand {
+abstract class AbsCommand extends BotCommand {
 
-    private static final Logger LOG = LogManager.getLogManager().getLogger(AnonCommand.class.getName());
+    private static final Logger LOG = LogManager.getLogManager().getLogger(AbsCommand.class.getName());
 
-    AnonCommand(String commandIdentifier, String description) {
+    AbsCommand(String commandIdentifier, String description) {
         super(commandIdentifier, description);
     }
 
