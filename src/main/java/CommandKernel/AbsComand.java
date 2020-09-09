@@ -1,7 +1,8 @@
-package Command;
+package CommandKernel;
 
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -24,6 +25,20 @@ abstract class AbsCommand extends BotCommand {
         } catch (TelegramApiException e) {
             LOG.log(Level.SEVERE, "Command error", e);
         }
+    }
+
+    protected SendMessage getMsg(Chat chat, String textMsg){
+        /*
+         * Собирает и возврашет сообщение.
+         */
+        StringBuilder sb = new StringBuilder();
+        sb.append(textMsg);
+
+        SendMessage messange = new SendMessage();
+        String chatId = chat.getId().toString();
+        messange.setChatId(chatId);
+        messange.setText(sb.toString());
+        return messange;
     }
 
 }
