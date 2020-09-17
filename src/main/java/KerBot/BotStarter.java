@@ -7,16 +7,18 @@ import java.util.logging.Logger;
 
 public class BotStarter {
 
-    private static final Logger Logs = LogManager.getLogManager().getLogger(BotStarter.class.getName());
+    private static final Logger Logs = Logger.getLogger(BotStarter.class.getName());
     private static ArrayList<String> BotPlatforms = new ArrayList<String>();
 
     public BotStarter(){
-        Logs.info("3...2...1...");
-    }
-
-    public static void main(){
-        Logs.info("Starting bot system...");
-
+        Logs.info("Start loader.");
+        platformInit();
+        try {
+            changeBotPlatform();
+        }
+        catch (ArrayIndexOutOfBoundsException e){
+            Logs.info("Incorrect bot");
+        }
     }
 
     private static void platformInit(){
@@ -24,7 +26,7 @@ public class BotStarter {
         BotPlatforms.add("Telegram");
     }
 
-    private static String  changeBotPlatform() throws ArrayIndexOutOfBoundsException{
+    private static String changeBotPlatform() throws ArrayIndexOutOfBoundsException{
         printVariant();
         int numChange = changeVariant();
         return BotPlatforms.get(numChange);

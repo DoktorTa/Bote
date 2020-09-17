@@ -13,6 +13,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+<!--                <version>4.0.0</version>-->
                 <configuration>
                     <target>8</target>
                     <source>8</source>
@@ -22,26 +23,30 @@
     </build>
 
     <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.telegram</groupId>
             <artifactId>telegrambots</artifactId>
-            <version>LATEST</version>
+            <version>4.9.1</version>
         </dependency>
 
         <dependency>
             <groupId>org.telegram</groupId>
             <artifactId>telegrambotsextensions</artifactId>
-            <version>LATEST</version>
+            <version>4.9.1</version>
         </dependency>
-
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>${junit.jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
-
     </dependencies>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+<!--        <maven-compiler-plugin-version>4.0.0</maven-compiler-plugin-version>-->
+    </properties>
+
 
 </project>
