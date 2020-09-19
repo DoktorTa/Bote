@@ -1,0 +1,11 @@
+Command\SetNameCommand.class
+Command\AnonymizerCommand.class
+Command\HelpCommand.class
+User\AnonymousService.class
+KernelBot\Main.class
+User\Anonymous.class
+Command\StopCommand.class
+Command\MyNameCommand.class
+KernelBot\botStart.class
+KernelBot\AnonymizerBot.class
+Command\StartCommand.class
