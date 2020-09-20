@@ -15,6 +15,7 @@ public final class AnonymousService {
 
     public AnonymousService() {
         mAnonymouses = new HashSet<>();
+
     }
 
     public boolean setUserDisplayedName(User user, String name) {

@@ -17,23 +17,38 @@ public final class StopCommand extends AnonymizerCommand {
 
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
+        String userId = user.getId().toString();
+        String textMsg = "";
 
         log.info(user.getId() + getCommandIdentifier());
 
-        StringBuilder sb = new StringBuilder();
-
-        SendMessage message = new SendMessage();
-        message.setChatId(chat.getId().toString());
-
         if (mAnonymouses.removeAnonymous(user)) {
-            log.info("User {} has been removed from users list!" + user.getId());
-            sb.append("You've been removed from bot's users list! Bye!");
-        } else {
-            log.info("User {} is trying to execute '{}' without having executed 'start' before!" + user.getId() + getCommandIdentifier());
-            sb.append("You were not in bot users' list. Bye!");
+            log.info("User " + userId +
+                    " has been removed from users list!");
+            textMsg = setGoodAnswer(user.getUserName());
+        }
+        else {
+            log.info("User " + userId +
+                    " is trying to execute " + getCommandIdentifier() + " without having executed 'start' before!");
+            textMsg = setBadAnswer();
         }
 
-        message.setText(sb.toString());
-        execute(absSender, message, user);
+        sendMSG(chat.getId().toString(), textMsg, user, absSender);
+    }
+
+    /**
+     * @param userName - Имя пользователя.
+     */
+    private String setGoodAnswer(String userName){
+        StringBuilder textMsg = new StringBuilder();
+        textMsg.append(userName)
+                .append(" you've been removed from bot's users list! Bye!");
+        return textMsg.toString();
+    }
+
+    private String setBadAnswer(){
+        StringBuilder textMsg = new StringBuilder();
+        textMsg.append("You were not in bot users' list. Bye!");
+        return textMsg.toString();
     }
 }

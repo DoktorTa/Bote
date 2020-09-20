@@ -22,9 +22,6 @@ public final class MyNameCommand extends AnonymizerCommand {
 
         StringBuilder sb = new StringBuilder();
 
-        SendMessage message = new SendMessage();
-        message.setChatId(chat.getId().toString());
-
         if (!mAnonymouses.hasAnonymous(user)) {
 
             sb.append("You are not in bot users' list! Send /start command!");
@@ -41,7 +38,7 @@ public final class MyNameCommand extends AnonymizerCommand {
             sb.append("Your current name: ").append(mAnonymouses.getDisplayedName(user));
         }
 
-        message.setText(sb.toString());
-        execute(absSender, message, user);
+        sendMSG(chat.getId().toString(), sb.toString(), user, absSender);
     }
+
 }

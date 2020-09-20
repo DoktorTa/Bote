@@ -4,10 +4,11 @@ package User;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 
+import java.io.Serializable;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
-public final class Anonymous {
+public final class Anonymous implements Serializable {
 
     private static final Logger LOG = Logger.getLogger(Anonymous.class.getName());
     private static final String USER_CHAT_CANNOT_BE_NULL = "User or chat cannot be null!";
@@ -23,6 +24,9 @@ public final class Anonymous {
         }
         mUser = user;
         mChat = chat;
+
+        RecoveryUsers r = new RecoveryUsers();
+        r.DeserializationUser(this);
     }
 
     @Override

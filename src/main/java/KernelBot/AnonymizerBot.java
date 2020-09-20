@@ -11,15 +11,13 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.util.HashMap;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 public final class AnonymizerBot extends TelegramLongPollingCommandBot {
 
     private static final Logger LOG = Logger.getLogger(AnonymizerBot.class.getName());
-
-    // имя бота, которое мы указали при создании аккаунта у BotFather
-    // и токен, который получили в результате
     private static final String BOT_NAME = "RetraceMSGbot";
     private static final String BOT_TOKEN = "1385670919:AAGakkLJt0rINFK3_qza2SfHIrmOuj2o4iM";
 
@@ -28,28 +26,23 @@ public final class AnonymizerBot extends TelegramLongPollingCommandBot {
     public AnonymizerBot(DefaultBotOptions botOptions) {
 
         super(botOptions, Boolean.parseBoolean(BOT_NAME));
-
-        LOG.info("Initializing Anonymizer Bot...");
-
-        LOG.info("Initializing anonymouses list...");
         mAnonymouses = new AnonymousService();
 
-        // регистрация всех кастомных команд
-        LOG.info("Registering commands...");
-        LOG.info("Registering '/start'...");
+        registerCommand();
+    }
+
+    private void setCommands(){
+        return;
+    }
+
+    public void registerCommand(){
         register(new StartCommand( mAnonymouses));
-        LOG.info("Registering '/set_name'...");
         register(new SetNameCommand(mAnonymouses));
-        LOG.info("Registering '/stop'...");
         register(new StopCommand(mAnonymouses));
-        LOG.info("Registering '/my_name'...");
         register(new MyNameCommand(mAnonymouses));
         HelpCommand helpCommand = new HelpCommand(this);
-        LOG.info("Registering '/help'...");
         register(helpCommand);
 
-        // обработка неизвестной команды
-        LOG.info("Registering default action'...");
         registerDefaultAction(((absSender, message) -> {
 
             LOG.info("User {} is trying to execute unknown command '{}'." + message.getFrom().getId() + message.getText());
@@ -70,13 +63,16 @@ public final class AnonymizerBot extends TelegramLongPollingCommandBot {
 
     @Override
     public String getBotUsername() {
-        return null;
+        return BOT_NAME;
     }
 
     @Override
     public String getBotToken() {
         return BOT_TOKEN;
     }
+
+
+//    ---------------------------------------------------------------------------------------------------------------
 
     // обработка сообщения не начинающегося с '/'
     @Override
@@ -165,4 +161,6 @@ public final class AnonymizerBot extends TelegramLongPollingCommandBot {
             LOG.info(user.getId().toString() + e);
         }
     }
+
+    //---------------------------------------------------------------------------------------------------------------
 }

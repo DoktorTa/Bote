@@ -16,6 +16,13 @@ abstract class AnonymizerCommand extends BotCommand {
         super(commandIdentifier, description);
     }
 
+    protected void sendMSG(String chatId, String msg, User user, AbsSender absSender){
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+        message.setText(msg);
+        execute(absSender, message, user);
+    }
+
     void execute(AbsSender sender, SendMessage message, User user) {
         try {
             sender.execute(message);

@@ -20,13 +20,10 @@ public final class SetNameCommand extends AnonymizerCommand {
 
         log.info(user.getId() + getCommandIdentifier());
 
-        SendMessage message = new SendMessage();
-        message.setChatId(chat.getId().toString());
-
         if (!mAnonymouses.hasAnonymous(user)) {
             log.info("User {} is trying to execute '{}' without starting the bot!" + user.getId() + getCommandIdentifier());
-            message.setText("Firstly you should start the bot! Execute '/start' command!");
-            execute(absSender, message, user);
+            String textMsg = "Firstly you should start the bot! Execute '/start' command!";
+            sendMSG(chat.getId().toString(), textMsg, user, absSender);
             return;
         }
 
@@ -34,8 +31,8 @@ public final class SetNameCommand extends AnonymizerCommand {
 
         if (displayedName == null) {
             log.info("User {} is trying to set empty name." + user.getId());
-            message.setText("You should use non-empty name!");
-            execute(absSender, message, user);
+            String textMsg = "You should use non-empty name!";
+            sendMSG(chat.getId().toString(), textMsg, user, absSender);
             return;
         }
 
@@ -56,8 +53,7 @@ public final class SetNameCommand extends AnonymizerCommand {
             sb.append("Name ").append(displayedName).append(" is already in use! Choose another name!");
         }
 
-        message.setText(sb.toString());
-        execute(absSender, message, user);
+        sendMSG(chat.getId().toString(), sb.toString(), user, absSender);
     }
 
     private String getName(String[] strings) {
