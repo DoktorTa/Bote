@@ -4,6 +4,7 @@ package User;
 import User.Anonymous;
 import org.telegram.telegrambots.meta.api.objects.User;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -15,7 +16,22 @@ public final class AnonymousService {
 
     public AnonymousService() {
         mAnonymouses = new HashSet<>();
+        userRecovery();
 
+    }
+
+    private void userRecovery() {
+        RecoveryUsers recUsers = new RecoveryUsers();
+        for(int i = 0; i < 10; i++){
+            try {
+                Anonymous recOneUser = recUsers.SerializationUser();
+                addAnonymous(recOneUser);
+            }
+            catch (IOException | ClassNotFoundException ex) {
+                System.out.println(ex.getMessage());
+            }
+
+        }
     }
 
     public boolean setUserDisplayedName(User user, String name) {

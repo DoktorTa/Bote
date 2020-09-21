@@ -24,9 +24,6 @@ public final class Anonymous implements Serializable {
         }
         mUser = user;
         mChat = chat;
-
-        RecoveryUsers r = new RecoveryUsers();
-        r.DeserializationUser(this);
     }
 
     @Override
@@ -53,5 +50,8 @@ public final class Anonymous implements Serializable {
 
     public void setDisplayedName(String displayedName) {
         mDisplayedName = displayedName;
+
+        RecoveryUsers r = new RecoveryUsers();
+        r.DeserializationUser(this);
     }
 }

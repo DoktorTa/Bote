@@ -17,28 +17,47 @@ public final class MyNameCommand extends AnonymizerCommand {
 
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
+        String textMsg = "";
+        String userId = user.getId().toString();
 
         log.info(user.getId() + getCommandIdentifier());
 
-        StringBuilder sb = new StringBuilder();
-
         if (!mAnonymouses.hasAnonymous(user)) {
-
-            sb.append("You are not in bot users' list! Send /start command!");
-            log.info("User {} is trying to execute '{}' without starting the bot." + user.getId() + getCommandIdentifier());
-
+            log.info("User " + userId
+                    + " is trying to execute " +  getCommandIdentifier() + " without starting the bot.");
+            textMsg = getTextNotRegUser();
         } else if(mAnonymouses.getDisplayedName(user) == null) {
-
-            sb.append("Currently you don't have a name.\nSet it using command:\n'/set_name &lt;displayed_name&gt;'");
-            log.info("User {} is trying to execute '{}' without having a name." + user.getId() + getCommandIdentifier());
-
+            log.info("User " + userId
+                    + " is trying to execute " +  getCommandIdentifier() + " without having a name.");
+            textMsg = getTextNotNameUser();
         } else {
-
-            log.info("User {} is executing '{}'. Name is '{}'." + user.getId() + getCommandIdentifier() + mAnonymouses.getDisplayedName(user));
-            sb.append("Your current name: ").append(mAnonymouses.getDisplayedName(user));
+            String nameUser = mAnonymouses.getDisplayedName(user);
+            textMsg = getTextNameUser(nameUser);
+            log.info("User " + userId +
+                    "is executing " +  getCommandIdentifier()
+                    + ". Name is:" + nameUser);
         }
 
-        sendMSG(chat.getId().toString(), sb.toString(), user, absSender);
+        sendMSG(chat.getId().toString(), textMsg, user, absSender);
+    }
+
+    private static String getTextNotRegUser(){
+        StringBuilder textMsg = new StringBuilder();
+        textMsg.append("You are not in bot users' list! Send /start command!");
+        return textMsg.toString();
+    }
+
+    private static String getTextNotNameUser(){
+        StringBuilder textMsg = new StringBuilder();
+        textMsg.append("Currently you don't have a name.\nSet it using command:\n'/set_name &lt;displayed_name&gt;'");
+        return textMsg.toString();
+    }
+
+    private static String getTextNameUser(String nameUser){
+        StringBuilder textMsg = new StringBuilder();
+        textMsg.append("Your current name: ")
+                .append(nameUser);
+        return textMsg.toString();
     }
 
 }
