@@ -78,8 +78,6 @@ public final class AnonymizerBot extends TelegramLongPollingCommandBot {
     @Override
     public void processNonCommandUpdate(Update update) {
 
-        LOG.info("Processing non-command update...");
-
         if (!update.hasMessage()) {
             LOG.info("Update doesn't have a body!");
             throw new IllegalStateException("Update doesn't have a body!");
@@ -88,7 +86,7 @@ public final class AnonymizerBot extends TelegramLongPollingCommandBot {
         Message msg = update.getMessage();
         User user = msg.getFrom();
 
-        LOG.info(user.getId().toString());
+        LOG.info("Non command from:" + user.getId().toString());
 
         if (!canSendMessage(user, msg)) {
             return;
@@ -97,13 +95,11 @@ public final class AnonymizerBot extends TelegramLongPollingCommandBot {
         String clearMessage = msg.getText();
         String messageForUsers = String.format("%s:\n%s", mAnonymouses.getDisplayedName(user), msg.getText());
 
-        SendMessage answer = new SendMessage();
+        deliveryAlert(msg, user);
 
-        // отправка ответа отправителю о том, что его сообщение получено
+        SendMessage answer = new SendMessage();
         answer.setText(clearMessage);
         answer.setChatId(msg.getChatId());
-        replyToUser(answer, user, clearMessage);
-
         // отправка сообщения всем остальным пользователям бота
         answer.setText(messageForUsers);
         Stream<Anonymous> anonymouses = mAnonymouses.anonymouses();
@@ -112,6 +108,15 @@ public final class AnonymizerBot extends TelegramLongPollingCommandBot {
                     answer.setChatId(a.getChat().getId());
                     sendMessageToUser(answer, a.getUser(), user);
                 });
+    }
+
+    private void deliveryAlert(Message msg, User user){
+        // отправка ответа отправителю о том, что его сообщение получено
+        SendMessage answer = new SendMessage();
+        String clearMessage = msg.getText();
+        answer.setText(clearMessage);
+        answer.setChatId(msg.getChatId());
+        replyToUser(answer, user, clearMessage);
     }
 
     // несколько проверок, чтобы можно было отправлять сообщения другим пользователям

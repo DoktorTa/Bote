@@ -1,7 +1,6 @@
 package Command;
 
 import User.AnonymousService;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
@@ -37,11 +36,9 @@ public final class SetNameCommand extends AnonymizerCommand {
             return;
         }
 
-        StringBuilder sb = new StringBuilder();
+        textMsg = checkUserNameNotUse(user, displayedName);
 
-        String text_msg = checkUserNameNotUse(user, displayedName);
-
-        sendMSG(chat.getId().toString(), sb.toString(), user, absSender);
+        sendMSG(chat.getId().toString(), textMsg, user, absSender);
     }
 
     private String checkUserNameNotUse(User user, String displayedName){
