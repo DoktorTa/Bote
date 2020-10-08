@@ -7,13 +7,14 @@ import java.util.Set;
 
 public class UsersGroupControl {
     /*
-    * Класс является зааменой даунскому классу ананимус сервис, за который руки оторавать мало будет.
-    *
     * Класс контролирует работу с группами 3 группами пользователей:
     * 1. Администраторы - принимают сообщения от всех пользователей, могут отправлять всем.
     * 2. Верефицированные пользователи - принимают и отправляют сообщения администраторам.
     * 3. Не верефецированые пользователи - возможен только запрос верификации.
+    *
     * */
+
+    // TODO: Разделить групы юзеров на разные классы, применить так сказать полиморфизм.
 
     private final Set<UserBot> mAdmins;
     private final Set<UserBot> mVerifiedUsers;
@@ -38,5 +39,17 @@ public class UsersGroupControl {
 
     public boolean removeAdminUser(User user) {
         return mAdmins.removeIf(a -> a.getUser().equals(user));
+    }
+
+    public boolean removeUnverifiedUser(User user) {
+        return mUnverifiedUsers.removeIf(a -> a.getUser().equals(user));
+    }
+
+    public boolean removeVerifiedUser(User user) {
+        return mVerifiedUsers.removeIf(a -> a.getUser().equals(user));
+    }
+
+    public boolean hasUserBot(User user) {
+        return mAnonymouses.stream().anyMatch(a -> a.getUser().equals(user));
     }
 }

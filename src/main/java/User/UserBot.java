@@ -52,8 +52,12 @@ public class UserBot {
 
     public void setDisplayedName(String displayedName) {
         mDisplayedName = displayedName;
-
-        RecoveryUsers r = new RecoveryUsers();
-        r.DeserializationUser(this);
+        // TODO: Вернуть сериализацию!
+        //this.saveUser();
     }
+
+//    private void saveUser(){
+//        RecoveryUsers r = new RecoveryUsers();
+//        r.DeserializationUser(this);
+//    }
 }
