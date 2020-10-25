@@ -40,7 +40,7 @@
         <dependency>
             <groupId>org.telegram</groupId>
             <artifactId>telegrambotsextensions</artifactId>
-            <version>4.9.1</version>
+            <version>LATEST</version>
         </dependency>
 
         <dependency>
