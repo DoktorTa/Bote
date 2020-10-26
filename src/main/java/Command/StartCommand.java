@@ -1,29 +1,32 @@
+package Command;
+
+import Users.NoVerUserBot;
+import Users.UserBot;
+import Users.VerUserBot;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 
-import java.util.logging.Logger;
-
 public class StartCommand extends AbsCommand{
     private final VerUserBot mVerUsersGroup;
-    private final Logger LOG = Logger.getLogger(StartCommand.class.getName());
-//    private final NoVerUserBot noVerUsersGroup;
+    private final NoVerUserBot mNoVerUsersGroup;
 
-    public StartCommand(VerUserBot verUsersGroup) {
+    public StartCommand(VerUserBot verUsersGroup, NoVerUserBot noVerUsersGroup) {
         super("/start", "Starting retrace msg to admin.");
         mVerUsersGroup = verUsersGroup;
-//        noVerUsersGroup = noVerUsersGroup;
+        mNoVerUsersGroup = noVerUsersGroup;
 
     }
 
-
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
-        String textMSG = "Error";
+        String textMSG = "";
 
         if (adminExistence()){
             textMSG = createAdmin(user);
-            LOG.info(mVerUsersGroup.getAdmin().identifier);
+        }
+        else if(mVerUsersGroup.userInGroup(new UserBot(user))){
+            textMSG = "You are verified";
         }
         else {
             textMSG = addNoVerUser(user);
@@ -33,7 +36,8 @@ public class StartCommand extends AbsCommand{
     }
 
     private String addNoVerUser(User user){
-
+        UserBot userBot = new UserBot(user);
+        mNoVerUsersGroup.addUserBot(userBot);
         return "Welcome, await administrator verification";
     }
 
@@ -44,7 +48,6 @@ public class StartCommand extends AbsCommand{
     private String createAdmin(User user){
         UserBot userBot = new UserBot(user);
         mVerUsersGroup.setAdmin(userBot);
-        String textMSG = "Hello my admin!";
-        return textMSG;
+        return "Hello my admin!";
     }
 }

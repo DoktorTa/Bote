@@ -1,6 +1,9 @@
+package Users;
+
 import org.telegram.telegrambots.meta.api.objects.User;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 abstract public class UsersGruops {
@@ -16,11 +19,17 @@ abstract public class UsersGruops {
         int inc = 0;
 
         for (UserBot user: usersGroup){
-            UsersGroupString.append(inc).append("|").append(user.identifier).append("\n");
+            UsersGroupString.append("[").append(inc).append("]")
+                    .append("|").append(user.identifier)
+                    .append("|").append(user.getUser().getUserName()).append("\n");
             inc++;
         }
 
         return UsersGroupString.toString();
+    }
+
+    public boolean userInGroup(UserBot userBot){
+        return usersGroup.stream().anyMatch(x -> Objects.equals(x.identifier, userBot.identifier));
     }
 
     abstract public boolean addUserBot(UserBot userBot);

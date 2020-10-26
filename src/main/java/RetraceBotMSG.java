@@ -1,3 +1,8 @@
+import Command.PendingVerCommand;
+import Command.StartCommand;
+import Command.VerCommand;
+import Users.NoVerUserBot;
+import Users.VerUserBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
 
@@ -8,12 +13,16 @@ public class RetraceBotMSG extends TelegramLongPollingCommandBot {
     private static final String BOT_NAME = "RetraceBotMSG";
 
     private final VerUserBot verUsersGroup;
+    private final NoVerUserBot noVerUsersGroup;
 
     public RetraceBotMSG(String nameAdmin) {
         verUsersGroup = new VerUserBot();
+        noVerUsersGroup = new NoVerUserBot();
 
 
-        register(new StartCommand(verUsersGroup));
+        register(new StartCommand(verUsersGroup, noVerUsersGroup));
+        register(new PendingVerCommand(verUsersGroup, noVerUsersGroup));
+        register(new VerCommand(verUsersGroup, noVerUsersGroup));
 //        register(new SetNameCommand());
 //        register(new SendMSGToUser());
     }

@@ -1,8 +1,11 @@
+package TestUsersPackage;
+
+import Users.UserBot;
+import Users.UsersGruops;
+import Users.VerUserBot;
 import org.junit.Assert;
 import org.junit.Test;
 import org.telegram.telegrambots.meta.api.objects.User;
-
-import java.util.ArrayList;
 
 public class TestVerUserBot {
 
@@ -38,5 +41,16 @@ public class TestVerUserBot {
 
         Assert.assertTrue(groupNoVer.removeUserBot(user));
         Assert.assertFalse(groupNoVer.removeUserBot(user));
+    }
+
+    @Test
+    public void testUserInGroup(){
+        User user = new User();
+        UserBot userBot = new UserBot(user);
+        VerUserBot groupNoVer = new VerUserBot();
+
+        Assert.assertFalse(groupNoVer.userInGroup(userBot));
+        groupNoVer.addUserBot(userBot);
+        Assert.assertTrue(groupNoVer.userInGroup(userBot));
     }
 }

@@ -1,3 +1,5 @@
+package Users;
+
 import org.telegram.telegrambots.meta.api.objects.User;
 
 public class UserBot {

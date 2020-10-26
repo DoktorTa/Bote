@@ -8,6 +8,8 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/java/TestCommandPackage" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/java/TestUsersPackage" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/libraries" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/resources/Conf" />
       <excludeFolder url="file://$MODULE_DIR$/target" />

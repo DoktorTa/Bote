@@ -1,3 +1,6 @@
+package TestUsersPackage;
+
+import Users.UserBot;
 import org.junit.Test;
 import org.junit.Assert;
 import org.telegram.telegrambots.meta.api.objects.User;
