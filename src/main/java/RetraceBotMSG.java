@@ -1,17 +1,19 @@
-import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
 
 
 public class RetraceBotMSG extends TelegramLongPollingCommandBot {
 
-    private static final String BOT_TOKEN = "";
+    private static final String BOT_TOKEN = "1385670919:AAGakkLJt0rINFK3_qza2SfHIrmOuj2o4iM";
     private static final String BOT_NAME = "RetraceBotMSG";
 
+    private final VerUserBot verUsersGroup;
+
     public RetraceBotMSG(String nameAdmin) {
-        register(new StartCommand());
+        verUsersGroup = new VerUserBot();
+
+
+        register(new StartCommand(verUsersGroup));
 //        register(new SetNameCommand());
 //        register(new SendMSGToUser());
     }

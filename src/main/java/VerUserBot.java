@@ -1,24 +1,27 @@
 import org.telegram.telegrambots.meta.api.objects.User;
 
-public class NoVerUserBot extends UsersGruops {
+public class VerUserBot extends UsersGruops{
+    private UserBot admin = null;
 
-    public NoVerUserBot(){
+    public VerUserBot(){
         super();
+    }
+
+    public void setAdmin(UserBot userBot){
+        admin = userBot;
     }
 
     @Override
     public boolean addUserBot(UserBot userBot) {
-        int maxNoVerUsers = 10;
-
-        if (!usersGroup.isEmpty() && usersGroup.size() >= maxNoVerUsers) {
-            Boolean x = usersGroup.remove(usersGroup.iterator().next());
-        }
-
         return usersGroup.add(userBot);
     }
 
     @Override
     public boolean removeUserBot(User user) {
         return usersGroup.removeIf(x -> x.getUser().equals(user));
+    }
+
+    public UserBot getAdmin(){
+        return admin;
     }
 }

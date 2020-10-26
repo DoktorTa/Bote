@@ -7,11 +7,6 @@ import java.util.ArrayList;
 public class TestNoVerUserBot {
 
     @Test
-    public void testGetListUser(){
-
-    }
-
-    @Test
     public void testAddUserBot() {
         ArrayList<UserBot> users = new ArrayList<UserBot>();
         while (users.size() < 11){
@@ -25,7 +20,7 @@ public class TestNoVerUserBot {
             Assert.assertTrue(groupNoVer.addUserBot(user));
         }
 
-        Assert.assertEquals(users.size(), 10);
+        Assert.assertEquals(groupNoVer.usersGroup.size(), 10);
     }
 
     @Test

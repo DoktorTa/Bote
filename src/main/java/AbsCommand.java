@@ -14,7 +14,7 @@ public abstract class AbsCommand extends BotCommand {
 
     public final Logger log = LogManager.getLogManager().getLogger(getClass().getName());
 
-    protected void sendMsg(String msg, Chat chat, User user, AbsSender sender){
+    protected void sendMsg(AbsSender sender, String msg, Chat chat, User user){
         SendMessage message = new SendMessage();
         message.setChatId(chat.getId().toString());
         message.setText(msg);

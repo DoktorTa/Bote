@@ -11,8 +11,16 @@ abstract public class UsersGruops {
         usersGroup = new HashSet<>();
     }
 
-    public String getUserList(){
-        return "";
+    public String getUsersGroupString(){
+        StringBuilder UsersGroupString = new StringBuilder();
+        int inc = 0;
+
+        for (UserBot user: usersGroup){
+            UsersGroupString.append(inc).append("|").append(user.identifier).append("\n");
+            inc++;
+        }
+
+        return UsersGroupString.toString();
     }
 
     abstract public boolean addUserBot(UserBot userBot);
