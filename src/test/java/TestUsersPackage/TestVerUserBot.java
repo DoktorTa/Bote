@@ -1,10 +1,10 @@
-package TestUsersPackage;
 
 import Users.UserBot;
 import Users.UsersGruops;
 import Users.VerUserBot;
 import org.junit.Assert;
 import org.junit.Test;
+import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 
 public class TestVerUserBot {
@@ -12,7 +12,7 @@ public class TestVerUserBot {
     @Test
     public void testSetAdminGetAdmin(){
         User user = new User();
-        UserBot userBot = new UserBot(user);
+        UserBot userBot = new UserBot(user, new Chat());
         VerUserBot groupNoVer = new VerUserBot();
 
         groupNoVer.setAdmin(userBot);
@@ -23,7 +23,7 @@ public class TestVerUserBot {
     @Test
     public void testAddUserBot() {
         User user = new User();
-        UserBot userBot = new UserBot(user);
+        UserBot userBot = new UserBot(user, new Chat());
         VerUserBot groupNoVer = new VerUserBot();
 
 
@@ -34,7 +34,7 @@ public class TestVerUserBot {
     @Test
     public void testRemoveUserBot() {
         User user = new User(123, "Peta", false, "Ivanov", "Jopa", "rus");
-        UserBot userBot = new UserBot(user);
+        UserBot userBot = new UserBot(user, new Chat());
         UsersGruops groupNoVer = new VerUserBot();
 
         groupNoVer.addUserBot(userBot);
@@ -46,7 +46,7 @@ public class TestVerUserBot {
     @Test
     public void testUserInGroup(){
         User user = new User();
-        UserBot userBot = new UserBot(user);
+        UserBot userBot = new UserBot(user, new Chat());
         VerUserBot groupNoVer = new VerUserBot();
 
         Assert.assertFalse(groupNoVer.userInGroup(userBot));

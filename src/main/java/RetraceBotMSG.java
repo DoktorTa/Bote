@@ -1,10 +1,15 @@
+import Command.DelCommand;
 import Command.PendingVerCommand;
 import Command.StartCommand;
 import Command.VerCommand;
 import Users.NoVerUserBot;
 import Users.VerUserBot;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
+import org.telegram.telegrambots.meta.api.objects.User;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 
 public class RetraceBotMSG extends TelegramLongPollingCommandBot {
@@ -19,12 +24,10 @@ public class RetraceBotMSG extends TelegramLongPollingCommandBot {
         verUsersGroup = new VerUserBot();
         noVerUsersGroup = new NoVerUserBot();
 
-
         register(new StartCommand(verUsersGroup, noVerUsersGroup));
         register(new PendingVerCommand(verUsersGroup, noVerUsersGroup));
         register(new VerCommand(verUsersGroup, noVerUsersGroup));
-//        register(new SetNameCommand());
-//        register(new SendMSGToUser());
+        register(new DelCommand(verUsersGroup, noVerUsersGroup));
     }
 
     @Override
@@ -33,27 +36,37 @@ public class RetraceBotMSG extends TelegramLongPollingCommandBot {
     }
 
     @Override
-    public void processNonCommandUpdate(Update update) {
-
-    }
-
-    @Override
     public String getBotToken() {
         return BOT_TOKEN;
     }
 
-//    @Override
-//    public void onUpdateReceived(Update update) {
-//        // We check if the update has a message and the message has text
-//        if (update.hasMessage() && update.getMessage().hasText()) {
-//            SendMessage message = new SendMessage() // Create a SendMessage object with mandatory fields
-//                    .setChatId(update.getMessage().getChatId())
-//                    .setText(update.getMessage().getText());
-//            try {
-//                execute(message); // Call method to send the message
-//            } catch (TelegramApiException e) {
-//                e.printStackTrace();
-//            }
+    @Override
+    public void processNonCommandUpdate(Update update) {
+
+        if (!update.hasMessage()) {
+            throw new IllegalStateException("Update doesn't have a body!");
+        }
+
+        Message msg = update.getMessage();
+        User user = msg.getFrom();
+
+//        if (!canSendMessage(user, msg)) {
+//            return;
 //        }
-//    }
+
+        String clearMessage = msg.getText();
+        SendMessage answer = new SendMessage();
+
+        answer.setText(clearMessage);
+//        answer.setChatId(msg.getChatId());
+//        replyToUser(answer, user, clearMessage);
+
+        answer.setChatId(verUsersGroup.getAdmin().getChat().getId());
+        try {
+            execute(answer);
+        } catch (TelegramApiException ignored) {
+        }
+    }
+
+
 }

@@ -8,7 +8,7 @@ public class StartBot {
 
     public static void main(String args[]){
         greeting();
-        String nameAdmin = getAdminName();
+        String nameAdmin = "q";
         startInitBot(nameAdmin);
     }
 
@@ -33,6 +33,4 @@ public class StartBot {
             e.printStackTrace();
         }
     }
-
-
 }

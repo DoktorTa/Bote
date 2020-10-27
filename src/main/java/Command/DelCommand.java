@@ -7,32 +7,23 @@ import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 
-public class VerCommand extends AbsCommand {
+public class DelCommand extends AbsCommand {
     private final VerUserBot mVerUsersGroup;
     private final NoVerUserBot mNoVerUsersGroup;
 
-    public VerCommand(VerUserBot verUsersGroup, NoVerUserBot noVerUsersGroup) {
-        super("/ver", "Verifies the user by the identifier, if he is in the list of unverified users.");
+    public DelCommand(VerUserBot verUsersGroup, NoVerUserBot noVerUsersGroup) {
+        super("/del", "Remove user from bot.");
         mVerUsersGroup = verUsersGroup;
         mNoVerUsersGroup = noVerUsersGroup;
     }
 
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
-        String textMSGToAdmin = "";
+        String textMSG = "";
 
         if (userIsAdmin(user, chat)){
-            UserBot userBot = deleteNoVerUser(strings[0]);
-
-            if (userBot == null){
-                textMSGToAdmin = "User not found!";
-            }
-            else {
-                textMSGToAdmin = verificationUser(userBot);
-                sendMsg(absSender, "You verification!", userBot.getChat(), userBot.getUser());
-            }
-
-            sendMsg(absSender, textMSGToAdmin, chat, user);
+           textMSG = delInNoVerGroup(strings[0]);
+            sendMsg(absSender, textMSG, chat, user);
         }
     }
 
@@ -41,19 +32,14 @@ public class VerCommand extends AbsCommand {
         return mVerUsersGroup.getAdmin().equals(new UserBot(user, chat));
     }
 
-    private UserBot deleteNoVerUser(String identifier){
+    private String delInNoVerGroup(String identifier){
         UserBot userBot = mNoVerUsersGroup.searchUserBot(identifier);
 
         if (userBot != null){
             mNoVerUsersGroup.removeUserBot(userBot.getUser());
-            return userBot;
+            return "User " + identifier + " deleted!";
         }
-
-        return null;
+        return "User " + identifier + " not found in not verification list!";
     }
 
-    private String verificationUser(UserBot userBot){
-        mVerUsersGroup.addUserBot(userBot);
-        return "User " + userBot.identifier + " verification!";
-    }
 }

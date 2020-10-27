@@ -23,20 +23,20 @@ public class StartCommand extends AbsCommand{
         String textMSG = "";
 
         if (adminExistence()){
-            textMSG = createAdmin(user);
+            textMSG = createAdmin(user, chat);
         }
-        else if(mVerUsersGroup.userInGroup(new UserBot(user))){
+        else if(mVerUsersGroup.userInGroup(new UserBot(user, chat))){
             textMSG = "You are verified";
         }
         else {
-            textMSG = addNoVerUser(user);
+            textMSG = addNoVerUser(user, chat);
         }
 
         sendMsg(absSender, textMSG, chat, user);
     }
 
-    private String addNoVerUser(User user){
-        UserBot userBot = new UserBot(user);
+    private String addNoVerUser(User user, Chat chat){
+        UserBot userBot = new UserBot(user, chat);
         mNoVerUsersGroup.addUserBot(userBot);
         return "Welcome, await administrator verification";
     }
@@ -45,8 +45,8 @@ public class StartCommand extends AbsCommand{
         return mVerUsersGroup.getAdmin() == null;
     }
 
-    private String createAdmin(User user){
-        UserBot userBot = new UserBot(user);
+    private String createAdmin(User user, Chat chat){
+        UserBot userBot = new UserBot(user, chat);
         mVerUsersGroup.setAdmin(userBot);
         return "Hello my admin!";
     }

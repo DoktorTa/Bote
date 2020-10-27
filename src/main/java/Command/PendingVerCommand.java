@@ -22,15 +22,16 @@ public class PendingVerCommand extends AbsCommand {
     public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
         String textMSG = "";
 
-        if (userIsAdmin(user)){
+        if (userIsAdmin(user, chat)){
             textMSG = getBeadrollNoVerUser();
             sendMsg(absSender, textMSG, chat, user);
         }
 
     }
 
-    private boolean userIsAdmin(User user){
-        return mVerUsersGroup.getAdmin().equals(new UserBot(user));
+    //TODO: Убрать проверку в одно место - кододублирование говно.
+    private boolean userIsAdmin(User user, Chat chat){
+        return mVerUsersGroup.getAdmin().equals(new UserBot(user, chat));
     }
 
     private String getBeadrollNoVerUser(){
