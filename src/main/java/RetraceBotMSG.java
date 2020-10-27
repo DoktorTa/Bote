@@ -1,7 +1,9 @@
 import Command.*;
 import Users.NoVerUserBot;
+import Users.UserBot;
 import Users.VerUserBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
@@ -17,7 +19,7 @@ public class RetraceBotMSG extends TelegramLongPollingCommandBot {
     private final VerUserBot verUsersGroup;
     private final NoVerUserBot noVerUsersGroup;
 
-    public RetraceBotMSG(String nameAdmin) {
+    public RetraceBotMSG() {
         verUsersGroup = new VerUserBot();
         noVerUsersGroup = new NoVerUserBot();
 
@@ -48,23 +50,30 @@ public class RetraceBotMSG extends TelegramLongPollingCommandBot {
 
         Message msg = update.getMessage();
         User user = msg.getFrom();
+        Chat chat = msg.getChat();
 
-//        if (!canSendMessage(user, msg)) {
-//            return;
-//        }
+        if (userIsNoVer(user, chat)){
+            return;
+        }
 
-        String clearMessage = msg.getText();
         SendMessage answer = new SendMessage();
-
-        answer.setText(clearMessage);
-//        answer.setChatId(msg.getChatId());
-//        replyToUser(answer, user, clearMessage);
-
+        answer.setText(msg.getText());
         answer.setChatId(verUsersGroup.getAdmin().getChat().getId());
+
         try {
             execute(answer);
-        } catch (TelegramApiException ignored) {
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
         }
+    }
+
+    /**
+     * @param user пользователь телеграмма.
+     * @param chat чат пользователя.
+     * @return верифицирован ли пользователь.
+     */
+    private boolean userIsNoVer(User user, Chat chat){
+        return !(verUsersGroup.userInGroup(new UserBot(user, chat)));
     }
 
 

@@ -2,14 +2,11 @@ import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.util.Scanner;
-
 public class StartBot {
 
-    public static void main(String args[]){
+    public static void main(String[] args){
         greeting();
-        String nameAdmin = "q";
-        startInitBot(nameAdmin);
+        startInitBot();
     }
 
     private static void greeting(){
@@ -18,17 +15,15 @@ public class StartBot {
         System.out.println(helloString);
     }
 
-    private static String getAdminName(){
-        Scanner in = new Scanner(System.in);
-        return in.next();
-    }
-
-    private static void startInitBot(String nameAdmin){
+    /**
+     * Инициализация запуска бота.
+     */
+    private static void startInitBot(){
         ApiContextInitializer.init();
         TelegramBotsApi botsApi = new TelegramBotsApi();
 
         try {
-            botsApi.registerBot(new RetraceBotMSG(nameAdmin));
+            botsApi.registerBot(new RetraceBotMSG());
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
