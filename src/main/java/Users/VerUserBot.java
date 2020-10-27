@@ -2,8 +2,9 @@ package Users;
 
 import org.telegram.telegrambots.meta.api.objects.User;
 
-/**
+/** Верифицированные пользователи.
  *
+ * {@value} Admin - администратор бота.
  */
 public class VerUserBot extends UsersGroups {
     private UserBot admin = null;
@@ -12,6 +13,9 @@ public class VerUserBot extends UsersGroups {
         super();
     }
 
+    /**
+     * @param userBot пользователь.
+     */
     public void setAdmin(UserBot userBot){
         admin = userBot;
     }
@@ -26,6 +30,9 @@ public class VerUserBot extends UsersGroups {
         return usersGroup.removeIf(x -> x.getUser().equals(user));
     }
 
+    /**
+     * @return пользователь.
+     */
     public UserBot getAdmin(){
         return admin;
     }

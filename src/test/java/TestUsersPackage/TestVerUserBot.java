@@ -1,4 +1,3 @@
-
 import Users.UserBot;
 import Users.UsersGroups;
 import Users.VerUserBot;
@@ -11,8 +10,7 @@ public class TestVerUserBot {
 
     @Test
     public void testSetAdminGetAdmin(){
-        User user = new User();
-        UserBot userBot = new UserBot(user, new Chat());
+        UserBot userBot = new UserBot(new User(), new Chat());
         VerUserBot groupNoVer = new VerUserBot();
 
         groupNoVer.setAdmin(userBot);
@@ -22,8 +20,7 @@ public class TestVerUserBot {
 
     @Test
     public void testAddUserBot() {
-        User user = new User();
-        UserBot userBot = new UserBot(user, new Chat());
+        UserBot userBot = new UserBot(new User(), new Chat());
         VerUserBot groupNoVer = new VerUserBot();
 
 
@@ -45,8 +42,7 @@ public class TestVerUserBot {
 
     @Test
     public void testUserInGroup(){
-        User user = new User();
-        UserBot userBot = new UserBot(user, new Chat());
+        UserBot userBot = new UserBot(new User(), new Chat());
         VerUserBot groupNoVer = new VerUserBot();
 
         Assert.assertFalse(groupNoVer.userInGroup(userBot));

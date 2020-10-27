@@ -2,6 +2,9 @@ package Users;
 
 import org.telegram.telegrambots.meta.api.objects.User;
 
+/** 10 последних не верифицированных пользователей.
+ *
+ */
 public class NoVerUserBot extends UsersGroups {
 
     public NoVerUserBot(){
@@ -10,13 +13,20 @@ public class NoVerUserBot extends UsersGroups {
 
     @Override
     public boolean addUserBot(UserBot userBot) {
-        int maxNoVerUsers = 10;
 
-        if (!usersGroup.isEmpty() && usersGroup.size() >= maxNoVerUsers) {
-            Boolean x = usersGroup.remove(usersGroup.iterator().next());
+        if (moreTenUsersOrNoEmpty()) {
+            usersGroup.remove(usersGroup.iterator().next());
         }
 
         return usersGroup.add(userBot);
+    }
+
+    /**
+     * @return Не пуст ли список и нет ли в нем больше 10 пользователей.
+     */
+    private boolean moreTenUsersOrNoEmpty(){
+        int maxNoVerUsers = 10;
+        return !usersGroup.isEmpty() && usersGroup.size() >= maxNoVerUsers;
     }
 
     @Override

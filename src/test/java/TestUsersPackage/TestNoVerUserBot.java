@@ -12,10 +12,9 @@ public class TestNoVerUserBot {
 
     @Test
     public void testAddUserBot() {
-        ArrayList<UserBot> users = new ArrayList<UserBot>();
+        ArrayList<UserBot> users = new ArrayList<>();
         while (users.size() < 11){
-            User user = new User();
-            UserBot userBot = new UserBot(user, new Chat());
+            UserBot userBot = new UserBot(new User(), new Chat());
             users.add(userBot);
         }
 
@@ -47,7 +46,7 @@ public class TestNoVerUserBot {
         noVerUserGroup.addUserBot(user1);
 
         Assert.assertEquals(user1, noVerUserGroup.searchUserBot("PetaJopa"));
-        Assert.assertNull(noVerUserGroup.searchUserBot("VovoMAGU"));
+        Assert.assertNull(noVerUserGroup.searchUserBot("VovaMAGU"));
     }
 
     @Test
