@@ -1,7 +1,4 @@
-import Command.DelCommand;
-import Command.PendingVerCommand;
-import Command.StartCommand;
-import Command.VerCommand;
+import Command.*;
 import Users.NoVerUserBot;
 import Users.VerUserBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -28,6 +25,8 @@ public class RetraceBotMSG extends TelegramLongPollingCommandBot {
         register(new PendingVerCommand(verUsersGroup, noVerUsersGroup));
         register(new VerCommand(verUsersGroup, noVerUsersGroup));
         register(new DelCommand(verUsersGroup, noVerUsersGroup));
+        register(new StopCommand(verUsersGroup, noVerUsersGroup));
+        register(new SendCommand(verUsersGroup, noVerUsersGroup));
     }
 
     @Override

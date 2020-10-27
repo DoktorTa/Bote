@@ -1,6 +1,6 @@
 
 import Users.UserBot;
-import Users.UsersGruops;
+import Users.UsersGroups;
 import Users.VerUserBot;
 import org.junit.Assert;
 import org.junit.Test;
@@ -35,7 +35,7 @@ public class TestVerUserBot {
     public void testRemoveUserBot() {
         User user = new User(123, "Peta", false, "Ivanov", "Jopa", "rus");
         UserBot userBot = new UserBot(user, new Chat());
-        UsersGruops groupNoVer = new VerUserBot();
+        UsersGroups groupNoVer = new VerUserBot();
 
         groupNoVer.addUserBot(userBot);
 

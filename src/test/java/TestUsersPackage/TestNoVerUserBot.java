@@ -1,7 +1,6 @@
 import Users.NoVerUserBot;
 import Users.UserBot;
-import Users.UsersGruops;
-import org.checkerframework.checker.units.qual.A;
+import Users.UsersGroups;
 import org.junit.Assert;
 import org.junit.Test;
 import org.telegram.telegrambots.meta.api.objects.Chat;
@@ -20,7 +19,7 @@ public class TestNoVerUserBot {
             users.add(userBot);
         }
 
-        UsersGruops groupNoVer = new NoVerUserBot();
+        UsersGroups groupNoVer = new NoVerUserBot();
         for (UserBot user: users) {
             Assert.assertTrue(groupNoVer.addUserBot(user));
         }
@@ -32,7 +31,7 @@ public class TestNoVerUserBot {
     public void testRemoveUserBot() {
         User user = new User(123, "Peta", false, "Ivanov", "Jopa", "rus");
         UserBot userBot = new UserBot(user, new Chat());
-        UsersGruops groupNoVer = new NoVerUserBot();
+        UsersGroups groupNoVer = new NoVerUserBot();
 
         groupNoVer.addUserBot(userBot);
 

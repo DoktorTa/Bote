@@ -2,7 +2,7 @@ package Users;
 
 import org.telegram.telegrambots.meta.api.objects.User;
 
-public class NoVerUserBot extends UsersGruops {
+public class NoVerUserBot extends UsersGroups {
 
     public NoVerUserBot(){
         super();
@@ -24,13 +24,4 @@ public class NoVerUserBot extends UsersGruops {
         return usersGroup.removeIf(x -> x.getUser().equals(user));
     }
 
-    public UserBot searchUserBot(String identifier){
-
-        UserBot userBot = usersGroup.stream().filter(x -> x.identifier.equals(identifier)).findFirst().orElse(null);
-
-        if (userBot == null) {
-            return null;
-        }
-        return userBot;
-    }
 }

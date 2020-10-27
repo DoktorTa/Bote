@@ -2,7 +2,10 @@ package Users;
 
 import org.telegram.telegrambots.meta.api.objects.User;
 
-public class VerUserBot extends UsersGruops{
+/**
+ *
+ */
+public class VerUserBot extends UsersGroups {
     private UserBot admin = null;
 
     public VerUserBot(){

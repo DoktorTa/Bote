@@ -3,8 +3,11 @@ package Users;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 
+/** The class is responsible for the bot user and is the same for all types of users.
+ *
+ * {@value} identifier - идентификатор пользователя для использования в группах.
+ * */
 public class UserBot {
-    /*  The class is responsible for the bot user and is the same for all types of users. */
 
     private final User mUser;
     private final Chat mChat;
@@ -16,15 +19,24 @@ public class UserBot {
         setIdentifierUser();
     }
 
+    /**
+     * Задает identifier как "FirstNameUserName".
+     */
     private void setIdentifierUser(){
         // Name user + login user.
         identifier = mUser.getFirstName() + mUser.getUserName();
     }
 
+    /**
+     * @return пользователь телеграмма.
+     */
     public User getUser(){
         return mUser;
     }
 
+    /**
+     * @return чат с пользователем телеграмма.
+     */
     public Chat getChat(){
         return mChat;
     }

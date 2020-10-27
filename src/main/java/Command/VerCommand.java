@@ -29,6 +29,9 @@ public class VerCommand extends AbsCommand {
             }
             else {
                 textMSGToAdmin = verificationUser(userBot);
+                if (textMSGToAdmin == null){
+                    return;
+                }
                 sendMsg(absSender, "You verification!", userBot.getChat(), userBot.getUser());
             }
 
@@ -41,6 +44,7 @@ public class VerCommand extends AbsCommand {
         return mVerUsersGroup.getAdmin().equals(new UserBot(user, chat));
     }
 
+    //TODO: Кододублирование говно.
     private UserBot deleteNoVerUser(String identifier){
         UserBot userBot = mNoVerUsersGroup.searchUserBot(identifier);
 
