@@ -15,6 +15,7 @@ import java.lang.reflect.Method;
 
 public class TestPendingVerCommand {
 
+    @Ignore
     @Test
     public void testUserIsAdmin() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         User user1 = new User(123, "Peta", false, "Ivanov", "Jopa", "rus");

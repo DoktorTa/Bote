@@ -7,14 +7,13 @@ import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 
-public class VerCommand extends AbsCommand {
-    private final VerUserBot mVerUsersGroup;
-    private final NoVerUserBot mNoVerUsersGroup;
+/**
+ * Класс ответственный за команду верификации.
+ */
+public class VerCommand extends AbsUserOperationCommand {
 
     public VerCommand(VerUserBot verUsersGroup, NoVerUserBot noVerUsersGroup) {
-        super("/ver", "Verifies the user by the identifier, if he is in the list of unverified users.");
-        mVerUsersGroup = verUsersGroup;
-        mNoVerUsersGroup = noVerUsersGroup;
+        super("/ver", "Verifies the user by the identifier, if he is in the list of unverified users.", verUsersGroup, noVerUsersGroup);
     }
 
     @Override
@@ -32,19 +31,18 @@ public class VerCommand extends AbsCommand {
                 if (textMSGToAdmin == null){
                     return;
                 }
-                sendMsg(absSender, "You verification!", userBot.getChat(), userBot.getUser());
+                sendMsg(absSender, "You verification!", userBot.getChat());
             }
 
-            sendMsg(absSender, textMSGToAdmin, chat, user);
+            sendMsg(absSender, textMSGToAdmin, chat);
         }
     }
 
-    //TODO: Убрать проверку в одно место - кододублирование говно.
-    private boolean userIsAdmin(User user, Chat chat){
-        return mVerUsersGroup.getAdmin().equals(new UserBot(user, chat));
-    }
-
-    //TODO: Кододублирование говно.
+    /**
+     * Удаление из списка не верифицированных пользователей.
+     * @param identifier идентификатор пользователя.
+     * @return UserBot or null. Удаленный пользователь.
+     */
     private UserBot deleteNoVerUser(String identifier){
         UserBot userBot = mNoVerUsersGroup.searchUserBot(identifier);
 
@@ -56,6 +54,11 @@ public class VerCommand extends AbsCommand {
         return null;
     }
 
+    /**
+     * Добавление пользователя в список верифицированных.
+     * @param userBot пользователь.
+     * @return String текст успешной верификации.
+     */
     private String verificationUser(UserBot userBot){
         mVerUsersGroup.addUserBot(userBot);
         return "User " + userBot.identifier + " verification!";
