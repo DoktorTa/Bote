@@ -17,20 +17,28 @@ public class StartCommand extends AbsUserOperationCommand{
     }
 
     @Override
-    public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
+    public void execute(AbsSender absSender, User user, Chat chat, String[] strings){
+        sendMsg(absSender, getTextMSG(user, chat), chat);
+    }
+
+    /**
+     * Получение текста ответного сообщения команды старт.
+     * @param user пользователь телеграмма.
+     * @param chat чат с пользователем.
+     * @return String текст ответа.
+     */
+    private String getTextMSG(User user, Chat chat){
         String textMSG;
 
         if (adminExistence()){
-            textMSG = createAdmin(user, chat);
+            return createAdmin(user, chat);
         }
         else if(mVerUsersGroup.userInGroup(new UserBot(user, chat))){
-            textMSG = "You are verified";
+            return  "You are verified";
         }
         else {
-            textMSG = addNoVerUser(user, chat);
+            return addNoVerUser(user, chat);
         }
-
-        sendMsg(absSender, textMSG, chat);
     }
 
     /**
@@ -42,7 +50,7 @@ public class StartCommand extends AbsUserOperationCommand{
     private String addNoVerUser(User user, Chat chat){
         UserBot userBot = new UserBot(user, chat);
         mNoVerUsersGroup.addUserBot(userBot);
-        return "Welcome, await administrator verification";
+        return "Welcome, await administrator verification.";
     }
 
     /**
