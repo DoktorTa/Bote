@@ -18,7 +18,7 @@ public class StartBot {
     private static void greeting(){
         String helloString = "Hi admin, welcome to RetraceBotMSG\n" +
                 "version 0, enter the name you will set for the bot administrator in Telegram: ";
-//        System.out.println(helloString);
+        System.out.println(helloString);
     }
 
     private static void createDataBase() throws SQLException, ClassNotFoundException {
