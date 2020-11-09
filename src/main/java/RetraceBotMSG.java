@@ -13,7 +13,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class RetraceBotMSG extends TelegramLongPollingCommandBot {
 
-    private static final String BOT_TOKEN = "1385670919:AAGakkLJt0rINFK3_qza2SfHIrmOuj2o4iM";
+    private static final String BOT_TOKEN = "$TOKEN$";
     private static final String BOT_NAME = "RetraceBotMSG";
 
     private final VerUserBot verUsersGroup;

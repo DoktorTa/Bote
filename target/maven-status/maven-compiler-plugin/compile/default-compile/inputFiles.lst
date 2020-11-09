@@ -1,11 +1,21 @@
-A:\Programming languages\In developing\Java\BoteMaster\src\main\java\Command\StopCommand.java
-A:\Programming languages\In developing\Java\BoteMaster\src\main\java\Command\MyNameCommand.java
-A:\Programming languages\In developing\Java\BoteMaster\src\main\java\Command\SetNameCommand.java
-A:\Programming languages\In developing\Java\BoteMaster\src\main\java\KernelBot\Main.java
-A:\Programming languages\In developing\Java\BoteMaster\src\main\java\Command\HelpCommand.java
-A:\Programming languages\In developing\Java\BoteMaster\src\main\java\KernelBot\botStart.java
-A:\Programming languages\In developing\Java\BoteMaster\src\main\java\Command\StartCommand.java
-A:\Programming languages\In developing\Java\BoteMaster\src\main\java\User\AnonymousService.java
-A:\Programming languages\In developing\Java\BoteMaster\src\main\java\KernelBot\AnonymizerBot.java
-A:\Programming languages\In developing\Java\BoteMaster\src\main\java\User\Anonymous.java
-A:\Programming languages\In developing\Java\BoteMaster\src\main\java\Command\AnonymizerCommand.java
+A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\main\java\Command\AbsCommand.java
+A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\main\java\Command\SendCommand.java
+A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\main\java\Command\AbsUserOperationCommand.java
+A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\main\java\Command\VerCommand.java
+A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\main\java\DataBase\IDataBase.java
+A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\main\java\DataBase\DataBaseMSSQL.java
+A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\main\java\Command\StopCommand.java
+A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\main\java\Users\VerUserBot.java
+A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\main\java\Command\PendingVerCommand.java
+A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\main\java\Tasks\TaskManager.java
+A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\main\java\Users\NoVerUserBot.java
+A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\main\java\Command\StartCommand.java
+A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\main\java\StartBot.java
+A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\main\java\Tasks\CreateTask.java
+A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\main\java\Users\IUsersOperation.java
+A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\main\java\Users\UsersGroups.java
+A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\main\java\RetraceBotMSG.java
+A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\main\java\Users\UserBot.java
+A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\main\java\Commands\AbsCommand.java
+A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\main\java\Command\DelCommand.java
+A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\main\java\Commands\StartCommand.java
