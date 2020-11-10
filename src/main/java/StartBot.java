@@ -14,28 +14,13 @@ public class StartBot {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         greeting();
-        createDataBase();
+        startInitBot();
     }
 
     private static void greeting(){
         String helloString = "Hi admin, welcome to RetraceBotMSG\n" +
                 "version 0, enter the name you will set for the bot administrator in Telegram: ";
         System.out.println(helloString);
-    }
-
-    private static void createDataBase() throws SQLException, ClassNotFoundException {
-        Logger LOG = Logger.getLogger(StartBot.class.getName());
-        DataBaseMSSQL Botes = new DataBaseMSSQL(LOG);
-        Botes.connectDataBase();
-
-        System.out.println(Botes.getTaskByNumber("1"));
-
-        ArrayList<String> resultSet = Botes.getTaskByLevel("1");
-
-        for (String line: resultSet) {
-            System.out.println(line);
-        }
-
     }
 
     /**
@@ -46,7 +31,7 @@ public class StartBot {
         TelegramBotsApi botsApi = new TelegramBotsApi();
 
         try {
-            botsApi.registerBot(new RetraceBotMSG());
+            botsApi.registerBot(new RetraceBotMSG(Logger.getLogger(StartBot.class.getName())));
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }

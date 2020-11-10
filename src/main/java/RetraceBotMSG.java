@@ -1,6 +1,9 @@
 import Command.*;
+import Commands.StartCommand;
+import TelegramCommand.TelegramCommandAdapter;
 import Users.NoVerUserBot;
 import Users.UserBot;
+import Users.UsersOp;
 import Users.VerUserBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Chat;
@@ -10,25 +13,29 @@ import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingC
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.util.logging.Logger;
+
 
 public class RetraceBotMSG extends TelegramLongPollingCommandBot {
+    private final Logger LOG;
 
-    private static final String BOT_TOKEN = "$TOKEN$";
-    private static final String BOT_NAME = "RetraceBotMSG";
+    private static final String BOT_TOKEN = System.getenv("TOKEN");
+    private static final String BOT_NAME = System.getenv("NAME_BOT");
 
     private final VerUserBot verUsersGroup;
     private final NoVerUserBot noVerUsersGroup;
 
-    public RetraceBotMSG() {
+    public RetraceBotMSG(Logger log) {
+        LOG = log;
         verUsersGroup = new VerUserBot();
         noVerUsersGroup = new NoVerUserBot();
 
-        register(new StartCommand(verUsersGroup, noVerUsersGroup));
-        register(new PendingVerCommand(verUsersGroup, noVerUsersGroup));
-        register(new VerCommand(verUsersGroup, noVerUsersGroup));
-        register(new DelCommand(verUsersGroup, noVerUsersGroup));
-        register(new StopCommand(verUsersGroup, noVerUsersGroup));
-        register(new SendCommand(verUsersGroup, noVerUsersGroup));
+        register(new TelegramCommandAdapter(new StartCommand(new UsersOp()), LOG));
+//        register(new PendingVerCommand(verUsersGroup, noVerUsersGroup));
+//        register(new VerCommand(verUsersGroup, noVerUsersGroup));
+//        register(new DelCommand(verUsersGroup, noVerUsersGroup));
+//        register(new StopCommand(verUsersGroup, noVerUsersGroup));
+//        register(new SendCommand(verUsersGroup, noVerUsersGroup));
     }
 
     @Override

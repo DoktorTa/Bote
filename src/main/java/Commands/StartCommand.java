@@ -8,10 +8,17 @@ import org.telegram.telegrambots.meta.api.objects.User;
 public class StartCommand extends AbsCommand {
 
     public StartCommand(IUsersOperation usersBot){
-        super("/start", usersBot);
+        super("/start", "Start command", usersBot);
     }
 
-    private String getAnswer(User user, Chat chat){
+    /**
+     * Получение текста ответного сообщения команды старт.
+     * @param user пользователь телеграмма.
+     * @param chat чат с пользователем.
+     * @return String текст ответа.
+     */
+    @Override
+    public String getAnswer(User user, Chat chat){
         String textMSG;
 
         if (adminExistence()){
@@ -56,8 +63,4 @@ public class StartCommand extends AbsCommand {
         return "Hello my admin!";
     }
 
-    @Override
-    public String getAnswer() {
-        return null;
-    }
 }

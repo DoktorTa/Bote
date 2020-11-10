@@ -37,6 +37,8 @@ public class DataBaseMSSQL implements IDataBase{
         }
     }
 
+    //TODO: Данный метод нарушает SRP, но с другой стороны он связывает несколько ответственностей в одну, действуя как
+    // команда.
     /**
         Метод для получения заданий по их уровню.
         @param level уровень заданий.
@@ -47,8 +49,12 @@ public class DataBaseMSSQL implements IDataBase{
         ArrayList<String> tasks = new ArrayList<String>();
         String query = "SELECT * FROM Tasks WHERE LevelTask=" + level + ";";
 
-        //TODO: null shielding.
         ResultSet resultSet = getQuerySELECTorNull(query);
+
+        if (resultSet == null){
+            return tasks;
+        }
+
 
         try{
             while (resultSet.next()){
@@ -63,6 +69,8 @@ public class DataBaseMSSQL implements IDataBase{
         return tasks;
     }
 
+    //TODO: Данный метод нарушает SRP, но с другой стороны он связывает несколько ответственностей в одну, действуя как
+    // команда.
     /**
         Метод для получения задания по его номеру.
      @return список одного задания состоящий из
@@ -74,10 +82,11 @@ public class DataBaseMSSQL implements IDataBase{
         ArrayList<String> task = new ArrayList<String>();
         String query = "SELECT * FROM Tasks WHERE NumberTask=" + number + ";";
 
-        System.out.println(query);
-
-        //TODO: null shielding.
         ResultSet resultSet = getQuerySELECTorNull(query);
+
+        if (resultSet == null){
+            return task;
+        }
 
         try {
             resultSet.next();
@@ -93,6 +102,7 @@ public class DataBaseMSSQL implements IDataBase{
         }
         return task;
     }
+
     /**
         Метод который создает новое задание.
         @param numberTask номер задания.
