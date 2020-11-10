@@ -1,18 +1,24 @@
 package DataBase;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Set;
+import java.util.ArrayList;
 
 public interface IDataBase{
 
-    void connectDataBase() throws ClassNotFoundException;
+    void connectDataBase();
 
-    ResultSet getTaskByLevel(String level) throws SQLException;
+    ArrayList<String> getTaskByLevel(String level);
 
-    boolean getTaskByNumber(String level) throws SQLException;
+    ArrayList<String> getTaskByNumber(String level);
 
-    boolean setTask() throws SQLException;
+    boolean setTask(String numberTask, String levelTask, String points,
+                    String textTask, String textAnswer, String correctAnswer);
+
+    boolean removeTask(String numberTask);
+
+    boolean getAdmin();
+
+    boolean getVerificationUsers() throws SQLException;
 
     boolean setAdmin() throws SQLException;
 

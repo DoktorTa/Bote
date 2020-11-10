@@ -6,6 +6,8 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 public class StartBot {
@@ -25,12 +27,15 @@ public class StartBot {
         Logger LOG = Logger.getLogger(StartBot.class.getName());
         DataBaseMSSQL Botes = new DataBaseMSSQL(LOG);
         Botes.connectDataBase();
-        ResultSet resultSet = Botes.getTaskByLevel("1");
 
-        while (resultSet.next()) {
-            System.out.println(resultSet.getString("TextTask"));
+        System.out.println(Botes.getTaskByNumber("1"));
 
+        ArrayList<String> resultSet = Botes.getTaskByLevel("1");
+
+        for (String line: resultSet) {
+            System.out.println(line);
         }
+
     }
 
     /**
