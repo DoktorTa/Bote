@@ -1,9 +1,12 @@
-import Command.*;
+import Commands.PendingVerCommand;
 import Commands.StartCommand;
+import Commands.VerCommand;
+import DataBase.DataBaseMSSQL;
+import DataBase.MSSQLUserTable;
 import TelegramCommand.TelegramCommandAdapter;
 import Users.NoVerUserBot;
 import Users.UserBot;
-import Users.UsersOp;
+import Users.UsersOperation;
 import Users.VerUserBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Chat;
@@ -30,9 +33,12 @@ public class RetraceBotMSG extends TelegramLongPollingCommandBot {
         verUsersGroup = new VerUserBot();
         noVerUsersGroup = new NoVerUserBot();
 
-        register(new TelegramCommandAdapter(new StartCommand(new UsersOp()), LOG));
-//        register(new PendingVerCommand(verUsersGroup, noVerUsersGroup));
-//        register(new VerCommand(verUsersGroup, noVerUsersGroup));
+        DataBaseMSSQL dataBaseMSSQL = new DataBaseMSSQL(LOG);
+        UsersOperation userOp = new UsersOperation(new MSSQLUserTable(LOG, dataBaseMSSQL.connectDataBase()));
+
+        register(new TelegramCommandAdapter(new StartCommand(userOp), LOG));
+        register(new TelegramCommandAdapter(new PendingVerCommand(userOp), LOG));
+        register(new TelegramCommandAdapter(new VerCommand(userOp), LOG));
 //        register(new DelCommand(verUsersGroup, noVerUsersGroup));
 //        register(new StopCommand(verUsersGroup, noVerUsersGroup));
 //        register(new SendCommand(verUsersGroup, noVerUsersGroup));

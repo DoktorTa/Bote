@@ -1,11 +1,8 @@
 package DataBase;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface IDataBase{
-
-    void connectDataBase();
+public interface IDataBaseTask {
 
     ArrayList<String> getTaskByLevel(String level);
 
@@ -15,13 +12,4 @@ public interface IDataBase{
                     String textTask, String textAnswer, String correctAnswer);
 
     boolean removeTask(String numberTask);
-
-    boolean getAdmin();
-
-    boolean getVerificationUsers() throws SQLException;
-
-    boolean setAdmin() throws SQLException;
-
-    boolean setVerificationUsers() throws SQLException;
-
 }

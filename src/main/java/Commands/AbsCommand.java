@@ -1,6 +1,7 @@
 package Commands;
 
 import Users.IUsersOperation;
+import Users.UserBot;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 
@@ -16,6 +17,13 @@ public abstract class AbsCommand {
         usersBot = usersBotOperation;
     }
 
+    /**
+     * @return является ли пользователь администратором.
+     */
+    protected boolean userIsAdmin(String identifier){
+        return usersBot.getAdminIdentifier().replace(" ", "").equals(identifier);
+    }
+
     public String getDescriptionCommand(){
         return descriptionCommand;
     }
@@ -24,7 +32,7 @@ public abstract class AbsCommand {
         return identifierCommand;
     }
 
-    abstract public String getAnswer(User user, Chat chat);
+    abstract public String getAnswer(UserBot user, String[] strings);
 
 
 }

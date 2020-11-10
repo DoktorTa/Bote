@@ -1,13 +1,9 @@
 import DataBase.DataBaseMSSQL;
-import DataBase.IDataBase;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.logging.Logger;
 
 public class StartBot {

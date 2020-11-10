@@ -5,6 +5,9 @@ import Users.UserBot;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class StartCommand extends AbsCommand {
 
     public StartCommand(IUsersOperation usersBot){
@@ -14,33 +17,31 @@ public class StartCommand extends AbsCommand {
     /**
      * Получение текста ответного сообщения команды старт.
      * @param user пользователь телеграмма.
-     * @param chat чат с пользователем.
-     * @return String текст ответа.
+     * @return
      */
     @Override
-    public String getAnswer(User user, Chat chat){
+    public String getAnswer(UserBot user, String[] strings){
         String textMSG;
+        ArrayList<String> userFromVer = usersBot.getUserFromVerUser(user.identifier);
 
         if (adminExistence()){
-            return createAdmin(user, chat);
+            return createAdmin(user);
         }
-        else if(usersBot.userInGroup(new UserBot(user, chat))){
+        else if(userFromVer != null){
             return  "You are verified";
         }
         else {
-            return addNoVerUser(user, chat);
+            return addNoVerUser(user);
         }
     }
 
     /**
      *
      * @param user пользователь телеграмма.
-     * @param chat чат с пользователем.
      * @return String пользователь верифицирован.
      */
-    private String addNoVerUser(User user, Chat chat){
-        UserBot userBot = new UserBot(user, chat);
-        usersBot.addUserToNoVerGroup(userBot);
+    private String addNoVerUser(UserBot user){
+        usersBot.addUserToNoVerGroup(user);
         return "Welcome, await administrator verification.";
     }
 
@@ -48,18 +49,16 @@ public class StartCommand extends AbsCommand {
      * @return boolean создан админ.
      */
     private boolean adminExistence(){
-        return usersBot.getAdmins() == null;
+        return usersBot.getAdminIdentifier() == null;
     }
 
     /**
      * Создает аккаунт администратора для первого пользователя нажавшего /start.
      * @param user пользователь телеграмма.
-     * @param chat чат с пользователем.
      * @return String приветствие администратора.
      */
-    private String createAdmin(User user, Chat chat){
-        UserBot userBot = new UserBot(user, chat);
-        usersBot.addAdmin(userBot);
+    private String createAdmin(UserBot user){
+        usersBot.addAdmin(user);
         return "Hello my admin!";
     }
 
