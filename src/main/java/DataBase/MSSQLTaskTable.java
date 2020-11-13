@@ -11,11 +11,9 @@ import java.util.logging.Logger;
 public class MSSQLTaskTable implements IDataBaseTask {
     private final Logger LOG;
 
-    private static Connection con;
     private static Statement stmt;
 
-    public MSSQLTaskTable(Logger log, Connection connection, Statement statement){
-        con = connection;
+    public MSSQLTaskTable(Logger log, Statement statement){
         stmt = statement;
         LOG = log;
     }
@@ -29,8 +27,9 @@ public class MSSQLTaskTable implements IDataBaseTask {
      */
     @Override
     public ArrayList<String> getTaskByLevel(String level){
+        int endString = 50;
         ArrayList<String> tasks = new ArrayList<String>();
-        String query = "SELECT * FROM Tasks WHERE LevelTask=" + level + ";";
+        String query = "SELECT NumberTask, TextTask FROM Tasks WHERE LevelTask=" + level + ";";
 
         ResultSet resultSet = getQuerySELECTorNull(query);
 
@@ -38,15 +37,16 @@ public class MSSQLTaskTable implements IDataBaseTask {
             return tasks;
         }
 
-
-        try{
-            while (resultSet.next()){
-                String taskLine =
-                        resultSet.getString("NumberTask") + ": " + resultSet.getString("TextTask");
-                tasks.add(taskLine);
+        try {
+            while (resultSet.next()) {
+                String numTask = resultSet.getString("NumberTask") + ". ";
+                String textTask = resultSet.getString("TextTask");
+                textTask = textTask.substring(0, endString - numTask.length());
+                tasks.add(numTask + textTask);
             }
         } catch (SQLException se){
             LOG.log(Level.WARNING, query + " " + se.getMessage());
+            se.printStackTrace();
         }
 
         return tasks;
@@ -83,6 +83,61 @@ public class MSSQLTaskTable implements IDataBaseTask {
             LOG.log(Level.WARNING, query + " " + se.getMessage());
             se.printStackTrace();
         }
+
+//        for (int i = 0; i != 6 ; i++){
+//            System.out.println(task.get(i));
+//        }
+
+        return task;
+    }
+
+    @Override
+    public ArrayList<Integer> getTaskAllNumber() {
+        ArrayList<Integer> task = new ArrayList<Integer>();
+        String query = "SELECT NumberTask FROM Tasks;";
+
+        ResultSet resultSet = getQuerySELECTorNull(query);
+
+        if (resultSet == null){
+            return task;
+        }
+
+        try {
+            while (resultSet.next()) {
+                task.add(resultSet.getInt("NumberTask"));
+            }
+        } catch (SQLException se){
+            LOG.log(Level.WARNING, query + " " + se.getMessage());
+            se.printStackTrace();
+        }
+
+        return task;
+    }
+
+    @Override
+    public ArrayList<String> getAllTasks() {
+        int endString = 50;
+        ArrayList<String> task = new ArrayList<String>();
+        String query = "SELECT NumberTask, TextTask FROM Tasks;";
+
+        ResultSet resultSet = getQuerySELECTorNull(query);
+
+        if (resultSet == null){
+            return task;
+        }
+
+        try {
+            while (resultSet.next()) {
+                String numTask = resultSet.getString("NumberTask") + ". ";
+                String textTask = resultSet.getString("TextTask");
+                textTask = textTask.substring(0, endString - numTask.length());
+                task.add(numTask + textTask);
+            }
+        } catch (SQLException se){
+            LOG.log(Level.WARNING, query + " " + se.getMessage());
+            se.printStackTrace();
+        }
+
         return task;
     }
 

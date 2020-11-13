@@ -14,8 +14,7 @@ public class StartBot {
     }
 
     private static void greeting(){
-        String helloString = "Hi admin, welcome to RetraceBotMSG\n" +
-                "version 0, enter the name you will set for the bot administrator in Telegram: ";
+        String helloString = "Starting...";
         System.out.println(helloString);
     }
 

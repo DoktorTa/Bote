@@ -31,6 +31,11 @@ public class UsersOperation implements IUsersOperation {
     }
 
     @Override
+    public void removeUserToVerGroup(String identifier) {
+        usersTable.removeUser(identifier);
+    }
+
+    @Override
     public String getAdminIdentifier() {
         return usersTable.getAdminIdentifier();
     }

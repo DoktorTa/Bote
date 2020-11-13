@@ -1,8 +1,6 @@
 package TelegramCommand;
 
 import Commands.AbsCommand;
-import Commands.StartCommand;
-import Users.IUsersOperation;
 import Users.UserBot;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -26,7 +24,7 @@ public class TelegramCommandAdapter extends BotCommand {
     }
 
     @Override
-    public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {// rename absSender
+    public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
         String msg = commandTelegram.getAnswer(new UserBot(user, chat), strings);
 
         SendMessage message = new SendMessage();

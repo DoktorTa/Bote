@@ -2,8 +2,6 @@ package Commands;
 
 import Users.IUsersOperation;
 import Users.UserBot;
-import org.telegram.telegrambots.meta.api.objects.Chat;
-import org.telegram.telegrambots.meta.api.objects.User;
 
 public abstract class AbsCommand {
 

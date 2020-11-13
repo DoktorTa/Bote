@@ -31,7 +31,7 @@ public class MSSQLUserTable implements IDataBaseUser {
 
     @Override
     public boolean removeUser(String identifier) {
-        String query = "DELETE FROM Users WHERE Identifier=\"" + identifier + "\";";
+        String query = "DELETE FROM Users WHERE IdentifierUser=" + identifier + ";";
         return getQueryINSERT_DELETE_UPDATE(query);
     }
 
@@ -48,7 +48,7 @@ public class MSSQLUserTable implements IDataBaseUser {
 
         try{
             resultSet.next();
-            identifier = resultSet.getString("Identifier");
+            identifier = resultSet.getString("IdentifierUser");
         } catch (SQLException se){
             LOG.log(Level.WARNING, query + " " + se.getMessage());
         }
@@ -59,7 +59,7 @@ public class MSSQLUserTable implements IDataBaseUser {
     @Override
     public ArrayList<String> getUser(String identifier) {
         ArrayList<String> user = null;
-        String query = "SELECT * FROM Users WHERE Identifier=" + identifier + ";";
+        String query = "SELECT * FROM Users WHERE IdentifierUser=" + identifier + ";";
 
         ResultSet resultSet = getQuerySELECTorNull(query);
 
@@ -69,7 +69,7 @@ public class MSSQLUserTable implements IDataBaseUser {
 
         try{
             resultSet.next();
-            user.add(resultSet.getString("Identifier"));
+            user.add(resultSet.getString("IdentifierUser"));
             user.add(resultSet.getString("IsAdmin"));
             user.add(resultSet.getString("ChatId"));
 

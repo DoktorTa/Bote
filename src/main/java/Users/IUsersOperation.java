@@ -16,6 +16,8 @@ public interface IUsersOperation {
 
     public void removeUserToNoVerGroup(User user);
 
+    public void removeUserToVerGroup(String identifier);
+
     public ArrayList<String> getUserFromVerUser(String user);
 
     public UserBot searchUserInNoVerGroup(String identifier);
