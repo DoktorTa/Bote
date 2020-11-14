@@ -13,7 +13,7 @@ public class VerCommand extends AbsCommand{
     public String getAnswer(UserBot user, String[] strings) {
         String textMSGToAdmin = "";
 
-        if (userIsAdmin(user.identifier)) {
+        if (userIsAdmin(user.getIdentifier())) {
             UserBot userNoVer = deleteNoVerUser(strings[0]);
 
             if (userNoVer == null) {
@@ -35,7 +35,7 @@ public class VerCommand extends AbsCommand{
         UserBot user = usersBot.searchUserInNoVerGroup(identifier);
 
         if (user != null){
-            usersBot.removeUserToNoVerGroup(user.getUser());
+            usersBot.removeUserToNoVerGroup(user.getIdentifier());
             return user;
         }
 
@@ -49,6 +49,6 @@ public class VerCommand extends AbsCommand{
      */
     private String verificationUser(UserBot user){
         usersBot.addUserToVerGroup(user);
-        return "User " + user.identifier + " verification!";
+        return "User " + user.getIdentifier() + " verification!";
     }
 }

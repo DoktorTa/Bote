@@ -6,7 +6,6 @@ import org.telegram.telegrambots.meta.api.objects.User;
 import java.util.ArrayList;
 
 public class UsersOperation implements IUsersOperation {
-    private final VerUserBot verUserBot;
     private final NoVerUserBot noVerUserBot;
 
     private final MSSQLUserTable usersTable;
@@ -14,20 +13,17 @@ public class UsersOperation implements IUsersOperation {
 
     public UsersOperation(MSSQLUserTable mssqlUserTable){
         usersTable = mssqlUserTable;
-        verUserBot = new VerUserBot();
         noVerUserBot = new NoVerUserBot();
     }
 
-
-
     @Override
     public void addAdmin(UserBot newAdmin) {
-        usersTable.setUser(newAdmin.identifier, "1", newAdmin.getChat().getId().toString());
+        usersTable.setUser(newAdmin.getIdentifier(), "1", newAdmin.getChatId());
     }
 
     @Override
     public void addUserToVerGroup(UserBot user) {
-        usersTable.setUser(user.identifier, "0", user.getChat().getId().toString());
+        usersTable.setUser(user.getIdentifier(), "0", user.getChatId());
     }
 
     @Override
@@ -61,7 +57,7 @@ public class UsersOperation implements IUsersOperation {
     }
 
     @Override
-    public void removeUserToNoVerGroup(User user) {
-        noVerUserBot.removeUserBot(user);
+    public void removeUserToNoVerGroup(String identifier) {
+        noVerUserBot.removeUserBot(identifier);
     }
 }

@@ -1,7 +1,5 @@
 package Users;
 
-import org.telegram.telegrambots.meta.api.objects.User;
-
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -27,8 +25,8 @@ abstract public class UsersGroups {
 
         for (UserBot user: usersGroup){
             UsersGroupString.append("[").append(inc).append("]")
-                    .append("|").append(user.identifier)
-                    .append("|").append(user.getUser().getUserName()).append("\n");
+                    .append("|").append(user.getIdentifier())
+                    .append("|");
             inc++;
         }
 
@@ -40,7 +38,7 @@ abstract public class UsersGroups {
      * @return boolean.
      */
     public boolean userInGroup(UserBot userBot){
-        return usersGroup.stream().anyMatch(x -> Objects.equals(x.identifier, userBot.identifier));
+        return usersGroup.stream().anyMatch(x -> Objects.equals(x.getIdentifier(), userBot.getIdentifier()));
     }
 
     /**
@@ -48,7 +46,7 @@ abstract public class UsersGroups {
      * @return userBot Пользователь or null.
      */
     public UserBot searchUserBot(String identifier){
-        return usersGroup.stream().filter(x -> x.identifier.equals(identifier)).findFirst().orElse(null);
+        return usersGroup.stream().filter(x -> x.getIdentifier().equals(identifier)).findFirst().orElse(null);
     }
 
     /**
@@ -61,5 +59,5 @@ abstract public class UsersGroups {
      * @param user пользователь телеграмма.
      * @return завершена ли операция удачно.
      */
-    abstract public boolean removeUserBot(User user);
+    abstract public boolean removeUserBot(String identifier);
 }

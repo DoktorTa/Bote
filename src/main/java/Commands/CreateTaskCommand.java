@@ -17,7 +17,7 @@ public class CreateTaskCommand extends AbsCommand{
     @Override
     public String getAnswer(UserBot user, String[] strings) {
         String answer = "";
-        if (userIsAdmin(user.identifier)) {
+        if (userIsAdmin(user.getIdentifier())) {
             ArrayList<String> fieldsTask = getFieldsTask(strings);
             String levelTask = fieldsTask.get(0);
             String points = fieldsTask.get(1);

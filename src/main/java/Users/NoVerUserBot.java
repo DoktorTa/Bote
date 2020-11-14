@@ -30,8 +30,8 @@ public class NoVerUserBot extends UsersGroups {
     }
 
     @Override
-    public boolean removeUserBot(User user) {
-        return usersGroup.removeIf(x -> x.getUser().equals(user));
+    public boolean removeUserBot(String identifier) {
+        return usersGroup.removeIf(x -> x.getIdentifier().equals(identifier));
     }
 
 }

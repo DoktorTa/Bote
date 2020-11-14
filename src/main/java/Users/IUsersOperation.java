@@ -14,7 +14,7 @@ public interface IUsersOperation {
 
     public void addUserToVerGroup(UserBot user);
 
-    public void removeUserToNoVerGroup(User user);
+    public void removeUserToNoVerGroup(String identifier);
 
     public void removeUserToVerGroup(String identifier);
 

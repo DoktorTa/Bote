@@ -4,14 +4,9 @@ import DataBase.MSSQLTaskTable;
 import DataBase.MSSQLUserTable;
 import Tasks.TaskOperation;
 import TelegramCommand.TelegramCommandAdapter;
-import Users.NoVerUserBot;
-import Users.UserBot;
 import Users.UsersOperation;
-import Users.VerUserBot;
-import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
-import org.telegram.telegrambots.meta.api.objects.User;
 
 import java.sql.Statement;
 import java.util.logging.Logger;
@@ -23,13 +18,8 @@ public class RetraceBotMSG extends TelegramLongPollingCommandBot {
     private static final String BOT_TOKEN = System.getenv("TOKEN");
     private static final String BOT_NAME = System.getenv("NAME_BOT");
 
-    private final VerUserBot verUsersGroup;
-    private final NoVerUserBot noVerUsersGroup;
-
     public RetraceBotMSG(Logger log) {
         LOG = log;
-        verUsersGroup = new VerUserBot();
-        noVerUsersGroup = new NoVerUserBot();
 
         DataBaseMSSQL dataBaseMSSQL = new DataBaseMSSQL(LOG);
         Statement stmt = dataBaseMSSQL.connectDataBase();
@@ -41,6 +31,7 @@ public class RetraceBotMSG extends TelegramLongPollingCommandBot {
         register(new TelegramCommandAdapter(new VerCommand(userOp), LOG));
         register(new TelegramCommandAdapter(new StopCommand(userOp), LOG));
         register(new TelegramCommandAdapter(new DelCommand(userOp), LOG));
+        register(new TelegramCommandAdapter(new HelpCommand(userOp), LOG));
 
         register(new TelegramCommandAdapter(new CreateTaskCommand(taskOp, userOp), LOG));
         register(new TelegramCommandAdapter(new GetTaskByNumberCommand(taskOp, userOp), LOG));
@@ -85,15 +76,5 @@ public class RetraceBotMSG extends TelegramLongPollingCommandBot {
 //            e.printStackTrace();
 //        }
     }
-
-    /**
-     * @param user пользователь телеграмма.
-     * @param chat чат пользователя.
-     * @return верифицирован ли пользователь.
-     */
-    private boolean userIsNoVer(User user, Chat chat){
-        return !(verUsersGroup.userInGroup(new UserBot(user, chat)));
-    }
-
 
 }

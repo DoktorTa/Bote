@@ -16,7 +16,7 @@ public class RemoveTaskCommand extends AbsCommand{
     public String getAnswer(UserBot user, String[] strings) {
         String answer = "";
 
-        if (userIsAdmin(user.identifier)){
+        if (userIsAdmin(user.getIdentifier())){
             answer = taskOperation.removeTaskByNumber(strings[0]);
         }
 

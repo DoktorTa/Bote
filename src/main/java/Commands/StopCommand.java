@@ -1,10 +1,7 @@
 package Commands;
 
 import Users.IUsersOperation;
-import Users.NoVerUserBot;
 import Users.UserBot;
-import Users.VerUserBot;
-import org.telegram.telegrambots.meta.api.objects.User;
 
 public class StopCommand extends AbsCommand{
 
@@ -18,7 +15,7 @@ public class StopCommand extends AbsCommand{
      * @return String текст ответа.
      */
     private String delInVerGroup(UserBot user){
-        usersBot.removeUserToVerGroup(user.identifier);
+        usersBot.removeUserToVerGroup(user.getIdentifier());
         return "STOP";
     }
 
@@ -27,7 +24,7 @@ public class StopCommand extends AbsCommand{
         String textMSG = "";
 
         //TODO: а не верифицированные?
-        if (!userIsAdmin(user.identifier)){
+        if (!userIsAdmin(user.getIdentifier())){
             textMSG = delInVerGroup(user);
         }
 

@@ -2,11 +2,8 @@ package Commands;
 
 import Users.IUsersOperation;
 import Users.UserBot;
-import org.telegram.telegrambots.meta.api.objects.Chat;
-import org.telegram.telegrambots.meta.api.objects.User;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class StartCommand extends AbsCommand {
 
@@ -22,7 +19,7 @@ public class StartCommand extends AbsCommand {
     @Override
     public String getAnswer(UserBot user, String[] strings){
         String textMSG;
-        ArrayList<String> userFromVer = usersBot.getUserFromVerUser(user.identifier);
+        ArrayList<String> userFromVer = usersBot.getUserFromVerUser(user.getIdentifier());
 
         if (adminExistence()){
             return createAdmin(user);

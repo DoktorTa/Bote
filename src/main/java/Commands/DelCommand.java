@@ -1,9 +1,7 @@
 package Commands;
 
 import Users.IUsersOperation;
-import Users.NoVerUserBot;
 import Users.UserBot;
-import Users.VerUserBot;
 
 public class DelCommand extends AbsCommand {
 
@@ -15,7 +13,7 @@ public class DelCommand extends AbsCommand {
     public String getAnswer(UserBot user, String[] strings) {
         String textMSG = "";
 
-        if (userIsAdmin(user.identifier)){
+        if (userIsAdmin(user.getIdentifier())){
             textMSG = delInNoVerGroup(strings[0]);
         }
 
@@ -31,7 +29,7 @@ public class DelCommand extends AbsCommand {
 
         if (user != null){
 
-            usersBot.removeUserToNoVerGroup(user.getUser());
+            usersBot.removeUserToNoVerGroup(identifier);
             return "User " + identifier + " deleted!";
         }
         return "User " + identifier + " not found in not verification list!";

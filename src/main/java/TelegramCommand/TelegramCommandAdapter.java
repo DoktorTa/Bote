@@ -25,7 +25,8 @@ public class TelegramCommandAdapter extends BotCommand {
 
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
-        String msg = commandTelegram.getAnswer(new UserBot(user, chat), strings);
+
+        String msg = commandTelegram.getAnswer(new UserBot(user.getFirstName() + "_" + user.getUserName(), chat.getId().toString()), strings);
 
         SendMessage message = new SendMessage();
         message.setChatId(chat.getId().toString());
