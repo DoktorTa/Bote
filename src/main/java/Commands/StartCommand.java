@@ -22,13 +22,28 @@ public class StartCommand extends AbsCommand {
         if (adminExistence()){
             return createAdmin(user);
         }
-
-        ArrayList<String> userFromVer = usersBot.getUserFromVerifiedUsers(user.getIdentifier());
-        if(userFromVer != null){
+        else if(userVerified(user.getIdentifier())){
             return  "You are verified";
         } else {
             return addNoVerUser(user);
         }
+    }
+
+    /**
+     * @return boolean создан админ.
+     */
+    private boolean adminExistence(){
+        return usersBot.getAdminIdentifier() == null;
+    }
+
+    /**
+     * Проверяет проверен ли пользователь до этого.
+     * @param identifier идентификатор пользователя.
+     * @return проверен ли пользователь до этого.
+     */
+    private boolean userVerified(String identifier){
+        ArrayList<String> userFromVer = usersBot.getUserFromVerifiedUsers(identifier);
+        return userFromVer.isEmpty();
     }
 
     /**
@@ -39,13 +54,6 @@ public class StartCommand extends AbsCommand {
     private String addNoVerUser(UserBot user){
         usersBot.addUserToNoVerifiedUsers(user);
         return "Welcome, await administrator verification.";
-    }
-
-    /**
-     * @return boolean создан админ.
-     */
-    private boolean adminExistence(){
-        return usersBot.getAdminIdentifier() == null;
     }
 
     /**
