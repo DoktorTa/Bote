@@ -3,9 +3,6 @@ package Tasks;
 import DataBase.MSSQLTaskTable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,22 +18,10 @@ public class TaskOperation implements ITaskOperation {
         tableTasks = tableTask;
     }
 
-    private String getNumberNextTask(ArrayList<Integer> allNumber){
-        Integer inc = 1;
-
-        while (allNumber.contains(inc)){
-            inc++;
-        }
-
-        return inc.toString();
-    }
-
     @Override
     public String createTask(String levelTask, String points, String textTask, String textAnswer, String correctAnswer) {
-        String numTask = getNumberNextTask(tableTasks.getTaskAllNumber());
-
-        if (tableTasks.setTask(numTask, levelTask, points, textTask, textAnswer, correctAnswer)){
-            return "Task create, number: " + numTask;
+        if (tableTasks.addTask(levelTask, points, textTask, textAnswer, correctAnswer)){
+            return "Task create!";
         } else {
             return "Error task create!";
         }
@@ -44,7 +29,7 @@ public class TaskOperation implements ITaskOperation {
 
     @Override
     public String removeTaskByNumber(String numberTask) {
-        String answer = "";
+        String answer;
 
         if (tableTasks.removeTask(numberTask)){
             answer = "Task delete, number " + numberTask + " is clear";
@@ -64,7 +49,7 @@ public class TaskOperation implements ITaskOperation {
             answer.append("Number: ").append(task.get(0))
                     .append(" Level: ").append(task.get(1))
                     .append(" Points: ").append(task.get(2)).append("\n")
-                    .append(task.get(3)).append("\n");
+                    .append(task.get(3).trim()).append("\n");
 
             String taskTextAnswer = task.get(4);
             Pattern pattern = Pattern.compile("([0-9]+[.][\\s])(.*?)(?=([0-9]+[.][\\s])|$)");
@@ -87,8 +72,8 @@ public class TaskOperation implements ITaskOperation {
 
         tasksString.append("Level all task this table: ").append(levelTasks).append("\n");
 
-        for (int inc = 0; allTasks.size() > inc; inc++){
-            tasksString.append(allTasks.get(inc)).append("\n");
+        for (String allTask : allTasks) {
+            tasksString.append(allTask).append("\n");
         }
 
         return tasksString.toString();    }
@@ -98,8 +83,8 @@ public class TaskOperation implements ITaskOperation {
         ArrayList<String> allTasks = tableTasks.getAllTasks();
         StringBuilder allTasksString = new StringBuilder();
 
-        for (int inc = 0; allTasks.size() > inc; inc++){
-            allTasksString.append(allTasks.get(inc)).append("\n");
+        for (String allTask : allTasks) {
+            allTasksString.append(allTask).append("\n");
         }
 
         return allTasksString.toString();

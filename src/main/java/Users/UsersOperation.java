@@ -1,34 +1,33 @@
 package Users;
 
-import DataBase.MSSQLUserTable;
-import org.telegram.telegrambots.meta.api.objects.User;
+import DataBase.IDataBaseUser;
 
 import java.util.ArrayList;
 
 public class UsersOperation implements IUsersOperation {
-    private final NoVerUserBot noVerUserBot;
+    private final NoVerifiedUsers noVerUsersGroup;
 
-    private final MSSQLUserTable usersTable;
+    // Можно обобщить и убрать базу данных в принципе.
+    private final IDataBaseUser usersTable;
 
-
-    public UsersOperation(MSSQLUserTable mssqlUserTable){
+    public UsersOperation(IDataBaseUser mssqlUserTable){
         usersTable = mssqlUserTable;
-        noVerUserBot = new NoVerUserBot();
+        noVerUsersGroup = new NoVerifiedUsers();
     }
 
     @Override
     public void addAdmin(UserBot newAdmin) {
-        usersTable.setUser(newAdmin.getIdentifier(), "1", newAdmin.getChatId());
+        usersTable.addUserToDataBase(newAdmin.getIdentifier(), "1", newAdmin.getChatId());
     }
 
     @Override
-    public void addUserToVerGroup(UserBot user) {
-        usersTable.setUser(user.getIdentifier(), "0", user.getChatId());
+    public void addUserToVerifiedUsers(UserBot user) {
+        usersTable.addUserToDataBase(user.getIdentifier(), "0", user.getChatId());
     }
 
     @Override
-    public void removeUserToVerGroup(String identifier) {
-        usersTable.removeUser(identifier);
+    public void removeUserToVerifiedUsers(String identifier) {
+        usersTable.removeUserToDataBase(identifier);
     }
 
     @Override
@@ -37,27 +36,27 @@ public class UsersOperation implements IUsersOperation {
     }
 
     @Override
-    public ArrayList<String> getUserFromVerUser(String identifier) {
-        return usersTable.getUser(identifier);
+    public ArrayList<String> getUserFromVerifiedUsers(String identifier) {
+        return usersTable.getUserToDataBase(identifier);
     }
 
     @Override
-    public void addUserToNoVerGroup(UserBot user) {
-        noVerUserBot.addUserBot(user);
+    public void addUserToNoVerifiedUsers(UserBot user) {
+        noVerUsersGroup.addUserBot(user);
     }
 
     @Override
-    public UserBot searchUserInNoVerGroup(String identifier) {
-        return noVerUserBot.searchUserBot(identifier);
+    public UserBot searchUserInNoVerifiedUsers(String identifier) {
+        return noVerUsersGroup.searchUserBot(identifier);
     }
 
     @Override
     public String getUsersGroupString() {
-        return noVerUserBot.getUsersGroupString();
+        return noVerUsersGroup.getUsersGroupString();
     }
 
     @Override
-    public void removeUserToNoVerGroup(String identifier) {
-        noVerUserBot.removeUserBot(identifier);
+    public void removeUserToNoVerifiedUsers(String identifier) {
+        noVerUsersGroup.removeUserBot(identifier);
     }
 }

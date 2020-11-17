@@ -32,10 +32,10 @@ public class VerCommand extends AbsCommand{
      * @return UserBot or null. Удаленный пользователь.
      */
     private UserBot deleteNoVerUser(String identifier){
-        UserBot user = usersBot.searchUserInNoVerGroup(identifier);
+        UserBot user = usersBot.searchUserInNoVerifiedUsers(identifier);
 
         if (user != null){
-            usersBot.removeUserToNoVerGroup(user.getIdentifier());
+            usersBot.removeUserToNoVerifiedUsers(user.getIdentifier());
             return user;
         }
 
@@ -48,7 +48,7 @@ public class VerCommand extends AbsCommand{
      * @return String текст успешной верификации.
      */
     private String verificationUser(UserBot user){
-        usersBot.addUserToVerGroup(user);
+        usersBot.addUserToVerifiedUsers(user);
         return "User " + user.getIdentifier() + " verification!";
     }
 }

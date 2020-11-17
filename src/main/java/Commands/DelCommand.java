@@ -25,11 +25,11 @@ public class DelCommand extends AbsCommand {
      * @return String текст сообщения для отправки пользователю.
      */
     private String delInNoVerGroup(String identifier){
-        UserBot user = usersBot.searchUserInNoVerGroup(identifier);
+        UserBot user = usersBot.searchUserInNoVerifiedUsers(identifier);
 
         if (user != null){
 
-            usersBot.removeUserToNoVerGroup(identifier);
+            usersBot.removeUserToNoVerifiedUsers(identifier);
             return "User " + identifier + " deleted!";
         }
         return "User " + identifier + " not found in not verification list!";

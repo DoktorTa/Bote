@@ -1,13 +1,10 @@
 package Users;
 
-import org.telegram.telegrambots.meta.api.objects.User;
 
-/** 10 последних не верифицированных пользователей.
- *
- */
-public class NoVerUserBot extends UsersGroups {
+/** 10 последних не верифицированных пользователей.*/
+public class NoVerifiedUsers extends UsersGroups {
 
-    public NoVerUserBot(){
+    public NoVerifiedUsers(){
         super();
     }
 

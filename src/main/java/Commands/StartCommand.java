@@ -14,20 +14,19 @@ public class StartCommand extends AbsCommand {
     /**
      * Получение текста ответного сообщения команды старт.
      * @param user пользователь телеграмма.
-     * @return
+     * @return текста ответного сообщения команды старт
      */
     @Override
     public String getAnswer(UserBot user, String[] strings){
-        String textMSG;
-        ArrayList<String> userFromVer = usersBot.getUserFromVerUser(user.getIdentifier());
 
         if (adminExistence()){
             return createAdmin(user);
         }
-        else if(userFromVer != null){
+
+        ArrayList<String> userFromVer = usersBot.getUserFromVerifiedUsers(user.getIdentifier());
+        if(userFromVer != null){
             return  "You are verified";
-        }
-        else {
+        } else {
             return addNoVerUser(user);
         }
     }
@@ -38,7 +37,7 @@ public class StartCommand extends AbsCommand {
      * @return String пользователь верифицирован.
      */
     private String addNoVerUser(UserBot user){
-        usersBot.addUserToNoVerGroup(user);
+        usersBot.addUserToNoVerifiedUsers(user);
         return "Welcome, await administrator verification.";
     }
 

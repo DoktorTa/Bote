@@ -15,13 +15,13 @@ public class StopCommand extends AbsCommand{
      * @return String текст ответа.
      */
     private String delInVerGroup(UserBot user){
-        usersBot.removeUserToVerGroup(user.getIdentifier());
+        usersBot.removeUserToVerifiedUsers(user.getIdentifier());
         return "STOP";
     }
 
     @Override
     public String getAnswer(UserBot user, String[] strings) {
-        String textMSG = "";
+        String textMSG = "No no no, you admin.";
 
         //TODO: а не верифицированные?
         if (!userIsAdmin(user.getIdentifier())){

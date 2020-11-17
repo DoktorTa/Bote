@@ -1,7 +1,6 @@
 package Users;
 
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -17,7 +16,7 @@ abstract public class UsersGroups {
     }
 
     /**
-     * @return Список пользователей в виде "[#]|Identifier|UserName"
+     * @return Список пользователей в виде "[#]|Identifier|"
      */
     public String getUsersGroupString(){
         StringBuilder UsersGroupString = new StringBuilder();
@@ -26,19 +25,11 @@ abstract public class UsersGroups {
         for (UserBot user: usersGroup){
             UsersGroupString.append("[").append(inc).append("]")
                     .append("|").append(user.getIdentifier())
-                    .append("|");
+                    .append("|").append("\n");
             inc++;
         }
 
         return UsersGroupString.toString();
-    }
-
-    /**
-     * @param userBot Пользователь.
-     * @return boolean.
-     */
-    public boolean userInGroup(UserBot userBot){
-        return usersGroup.stream().anyMatch(x -> Objects.equals(x.getIdentifier(), userBot.getIdentifier()));
     }
 
     /**
@@ -56,7 +47,6 @@ abstract public class UsersGroups {
     abstract public boolean addUserBot(UserBot userBot);
 
     /**
-     * @param user пользователь телеграмма.
      * @return завершена ли операция удачно.
      */
     abstract public boolean removeUserBot(String identifier);

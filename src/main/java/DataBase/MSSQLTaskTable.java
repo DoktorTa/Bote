@@ -1,6 +1,5 @@
 package DataBase;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,48 +17,12 @@ public class MSSQLTaskTable implements IDataBaseTask {
         LOG = log;
     }
 
-    //TODO: Данный метод нарушает SRP, но с другой стороны он связывает несколько ответственностей в одну, действуя как
-    // команда.
-    /**
-     Метод для получения заданий по их уровню.
-     @param level уровень заданий.
-     @return список номеров и текстов заданий.
-     */
     @Override
     public ArrayList<String> getTaskByLevel(String level){
-        int endString = 50;
-        ArrayList<String> tasks = new ArrayList<String>();
         String query = "SELECT NumberTask, TextTask FROM Tasks WHERE LevelTask=" + level + ";";
-
-        ResultSet resultSet = getQuerySELECTorNull(query);
-
-        if (resultSet == null){
-            return tasks;
-        }
-
-        try {
-            while (resultSet.next()) {
-                String numTask = resultSet.getString("NumberTask") + ". ";
-                String textTask = resultSet.getString("TextTask");
-                textTask = textTask.substring(0, endString - numTask.length());
-                tasks.add(numTask + textTask);
-            }
-        } catch (SQLException se){
-            LOG.log(Level.WARNING, query + " " + se.getMessage());
-            se.printStackTrace();
-        }
-
-        return tasks;
+        return getListTasks(query);
     }
 
-    //TODO: Данный метод нарушает SRP, но с другой стороны он связывает несколько ответственностей в одну, действуя как
-    // команда.
-    /**
-     Метод для получения задания по его номеру.
-     @return список одного задания состоящий из
-     номера задания, уровня задания, баллов за задание, текста задания, вариантов ответа, правильного ответа.
-      * @param number номер заданий.
-     */
     @Override
     public ArrayList<String> getTaskByNumber(String number){
         ArrayList<String> task = new ArrayList<String>();
@@ -73,42 +36,14 @@ public class MSSQLTaskTable implements IDataBaseTask {
 
         try {
             resultSet.next();
-            task.add(resultSet.getString("NumberTask"));
-            task.add(resultSet.getString("LevelTask"));
-            task.add(resultSet.getString("Points"));
-            task.add(resultSet.getString("TextTask"));
-            task.add(resultSet.getString("TextAnswer"));
-            task.add(resultSet.getString("CorrectAnswer"));
+            task.add(resultSet.getString("NumberTask").trim());
+            task.add(resultSet.getString("LevelTask").trim());
+            task.add(resultSet.getString("Points").trim());
+            task.add(resultSet.getString("TextTask").trim());
+            task.add(resultSet.getString("TextAnswer").trim());
+            task.add(resultSet.getString("CorrectAnswer").trim());
         } catch (SQLException se){
             LOG.log(Level.WARNING, query + " " + se.getMessage());
-            se.printStackTrace();
-        }
-
-//        for (int i = 0; i != 6 ; i++){
-//            System.out.println(task.get(i));
-//        }
-
-        return task;
-    }
-
-    @Override
-    public ArrayList<Integer> getTaskAllNumber() {
-        ArrayList<Integer> task = new ArrayList<Integer>();
-        String query = "SELECT NumberTask FROM Tasks;";
-
-        ResultSet resultSet = getQuerySELECTorNull(query);
-
-        if (resultSet == null){
-            return task;
-        }
-
-        try {
-            while (resultSet.next()) {
-                task.add(resultSet.getInt("NumberTask"));
-            }
-        } catch (SQLException se){
-            LOG.log(Level.WARNING, query + " " + se.getMessage());
-            se.printStackTrace();
         }
 
         return task;
@@ -116,44 +51,15 @@ public class MSSQLTaskTable implements IDataBaseTask {
 
     @Override
     public ArrayList<String> getAllTasks() {
-        int endString = 50;
-        ArrayList<String> task = new ArrayList<String>();
         String query = "SELECT NumberTask, TextTask FROM Tasks;";
-
-        ResultSet resultSet = getQuerySELECTorNull(query);
-
-        if (resultSet == null){
-            return task;
-        }
-
-        try {
-            while (resultSet.next()) {
-                String numTask = resultSet.getString("NumberTask") + ". ";
-                String textTask = resultSet.getString("TextTask");
-                textTask = textTask.substring(0, endString - numTask.length());
-                task.add(numTask + textTask);
-            }
-        } catch (SQLException se){
-            LOG.log(Level.WARNING, query + " " + se.getMessage());
-            se.printStackTrace();
-        }
-
-        return task;
+        return getListTasks(query);
     }
 
-    /**
-     Метод который создает новое задание.
-     @param numberTask номер задания.
-     @param levelTask уровень задания.
-     @param points количество баллов за задание.
-     @param textTask текст задания.
-     @param textAnswer текст вариантов ответа на задание.
-     @param correctAnswer правильные ответы.
-     @return false если во время выполнения запроса произошла ошибка.
-     */
     @Override
-    public boolean setTask(String numberTask, String levelTask, String points,
+    public boolean addTask(String levelTask, String points,
                            String textTask, String textAnswer, String correctAnswer){
+
+        String numberTask = getNumberNextTask();
         String query = "INSERT INTO Tasks " + "VALUES (" +
                 numberTask + ", " +
                 levelTask + ", " +
@@ -164,11 +70,6 @@ public class MSSQLTaskTable implements IDataBaseTask {
         return getQueryINSERT_DELETE_UPDATE(query);
     }
 
-    /**
-     Метод удаляющий задание по его номеру.
-     @param numberTask номер задания.
-     @return false если во время удаления произошла ошибка.
-     */
     @Override
     public boolean removeTask(String numberTask) {
         String query = "DELETE FROM Tasks WHERE NumberTask=" + numberTask + ";";
@@ -203,5 +104,74 @@ public class MSSQLTaskTable implements IDataBaseTask {
             LOG.log(Level.WARNING, query + " " + se.getMessage());
             return false;
         }
+    }
+
+    /**
+     * Возвращает лист заданий,к= каждая строка выглядит как: "№. TextTask\n" длинна всей строки не более 51 символа.
+     * @param query SQl запрос который вернет необходимую выборку с полями NumberTask, TextTask.
+     * @return лист заданий.
+     */
+    private ArrayList<String> getListTasks(String query){
+        int endString = 50;
+        ArrayList<String> task = new ArrayList<String>();
+        ResultSet resultSet = getQuerySELECTorNull(query);
+
+        if (resultSet == null){
+            return task;
+        }
+
+        try {
+            while (resultSet.next()) {
+                String numTask = resultSet.getString("NumberTask") + ". ";
+                String textTask = resultSet.getString("TextTask");
+                textTask = textTask.substring(0, endString - numTask.length());
+                task.add(numTask + textTask);
+            }
+        } catch (SQLException se){
+            LOG.log(Level.WARNING, query + " " + se.getMessage());
+            se.printStackTrace();
+        }
+
+        return task;
+    }
+
+    /**
+     * Возвращает не использованный номер.
+     * @return номер который можно использовать при создании задания.
+     */
+    private String getNumberNextTask(){
+        ArrayList<Integer> allNumber = getTaskAllNumber();
+        Integer inc = 1;
+
+        while (allNumber.contains(inc)){
+            inc++;
+        }
+
+        return inc.toString();
+    }
+
+    /**
+     * Возвращает лист всех использованных номеров.
+     * @return лист всех использованных номеров
+     */
+    public ArrayList<Integer> getTaskAllNumber() {
+        ArrayList<Integer> task = new ArrayList<Integer>();
+        String query = "SELECT NumberTask FROM Tasks;";
+
+        ResultSet resultSet = getQuerySELECTorNull(query);
+
+        if (resultSet == null){
+            return task;
+        }
+
+        try {
+            while (resultSet.next()) {
+                task.add(resultSet.getInt("NumberTask"));
+            }
+        } catch (SQLException se){
+            LOG.log(Level.WARNING, query + " " + se.getMessage());
+        }
+
+        return task;
     }
 }

@@ -1,26 +1,62 @@
 package Users;
 
-import org.telegram.telegrambots.meta.api.objects.User;
-
 import java.util.ArrayList;
 
 public interface IUsersOperation {
 
-    public void addAdmin(UserBot newAdmin);
+    /**
+     * Добавляет нового администратора.
+     * @param newAdmin пользователь бота.
+     */
+    void addAdmin(UserBot newAdmin);
 
-    public String getAdminIdentifier();
+    /**
+     * Возвращает идентификатор администратора.
+     * @return идентификатор администратора.
+     */
+    String getAdminIdentifier();
 
-    public void addUserToNoVerGroup(UserBot user);
+    /**
+     * Добавляет пользователя к не проверенным пользователям.
+     * @param user - пользователь бота.
+     */
+    void addUserToNoVerifiedUsers(UserBot user);
 
-    public void addUserToVerGroup(UserBot user);
+    /**
+     * Добавляет пользователя к проверенным пользователям.
+     * @param user пользователь бота.
+     */
+    void addUserToVerifiedUsers(UserBot user);
 
-    public void removeUserToNoVerGroup(String identifier);
+    /**
+     * Удаляет пользователя из группы не проверенных пользователей.
+     * @param identifier идентификатор пользователя.
+     */
+    void removeUserToNoVerifiedUsers(String identifier);
 
-    public void removeUserToVerGroup(String identifier);
+    /**
+     * Удаляет пользователя из группы проверенных пользователей.
+     * @param identifier идентификатор пользователя.
+     */
+    void removeUserToVerifiedUsers(String identifier);
 
-    public ArrayList<String> getUserFromVerUser(String user);
+    /**
+     * Возвращает пользователя по идентификатору.
+     * @param identifier идентификатор пользователя.
+     * @return пользователь соответствующий идентификатору.
+     */
+    ArrayList<String> getUserFromVerifiedUsers(String identifier);
 
-    public UserBot searchUserInNoVerGroup(String identifier);
+    /**
+     * Поиск пользователя по идентификатору среди не проверенных пользователей.
+     * @param identifier идентификатор пользователя.
+     * @return пользователь бота.
+     */
+    UserBot searchUserInNoVerifiedUsers(String identifier);
 
-    public String getUsersGroupString();
+    /**
+     * Возвращает список не проверенных пользователей в виде строки.
+     * @return строка из 10 не проверенных пользователей.
+     */
+    String getUsersGroupString();
 }

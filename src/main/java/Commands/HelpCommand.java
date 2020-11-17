@@ -24,7 +24,7 @@ public class HelpCommand extends AbsCommand {
 
     private String adminCommandList(){
         StringBuilder help = new StringBuilder();
-        help.append("/create_task").append(" - добавление задания.\n")
+        help.append("/create_task").append(" - добавление задания. Для следующего поля введите '>^<'\n")
                 .append(" Args: \n")
                 .append("    Level task - уровень задания.\n")
                 .append("    Points - количество балов за задания.\n")

@@ -1,8 +1,10 @@
 A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\test\java\TestCommandPackage\TestStartCommand.java
+A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\test\java\TestDataBase\TestMSSQLUserTable.java
 A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\test\java\TestCommandPackage\TestStopCommand.java
-A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\test\java\TestUsersPackage\TestVerUserBot.java
+A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\test\java\TestUsersPackage\TestUserOperation.java
+A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\test\java\TestTasks\TestTaskOperation.java
 A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\test\java\TestCommandPackage\TestDelCommand.java
+A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\test\java\TestUsersPackage\TestNoVerifiedUsers.java
 A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\test\java\TestCommandPackage\TestPendingVerCommand.java
 A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\test\java\TestUsersPackage\TestUserBot.java
-A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\test\java\TestUsersPackage\TestNoVerUserBot.java
 A:\ProgrammingLanguages\InDeveloping\Java\BoteMaster\src\test\java\TestCommandPackage\TestVerCommand.java
