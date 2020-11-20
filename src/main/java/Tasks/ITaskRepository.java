@@ -1,6 +1,6 @@
 package Tasks;
 
-public interface ITaskOperation {
+public interface ITaskRepository { // repository  лучше назвать.
 
     /**
      * Возвращает ответ на создание задания.
@@ -39,4 +39,9 @@ public interface ITaskOperation {
      * @return список заданий в качестве одной строки.
      */
     String getAllTasks();
+
+    /**
+     * Возвращает номера ответов или их текст.
+     */
+    String getAnswerTask(String num);
 }

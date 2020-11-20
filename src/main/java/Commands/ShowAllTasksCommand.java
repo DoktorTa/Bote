@@ -1,19 +1,20 @@
 package Commands;
 
-import Tasks.ITaskOperation;
+import Tasks.ITaskRepository;
 import Users.IUsersOperation;
 import Users.UserBot;
 
-public class ShowAllTasksCommand extends AbsCommand{
-    private final ITaskOperation taskOperation;
+public class ShowAllTasksCommand extends AbstractTaskCommand {
 
-    public ShowAllTasksCommand(ITaskOperation iTaskOperation, IUsersOperation usersBotOperation) {
-        super("/all_tasks", "Show all tasks", usersBotOperation);
-        taskOperation = iTaskOperation;
+    public ShowAllTasksCommand(ITaskRepository taskOperation, IUsersOperation usersBotOperation,
+                               LastUserQuery lastUserQuery1) {
+        super("/all_tasks", "Show all tasks",
+                usersBotOperation, taskOperation, lastUserQuery1);
     }
 
     @Override
     public String getAnswer(UserBot user, String[] strings) {
-        return taskOperation.getAllTasks();
+        lastUserQuery.addQuery(user.getChatId(), "num");
+        return iTaskRepository.getAllTasks();
     }
 }

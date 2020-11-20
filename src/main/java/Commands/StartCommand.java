@@ -5,7 +5,7 @@ import Users.UserBot;
 
 import java.util.ArrayList;
 
-public class StartCommand extends AbsCommand {
+public class StartCommand extends AbstractCommand {
 
     public StartCommand(IUsersOperation usersBot){
         super("/start", "Start command", usersBot);
@@ -21,8 +21,7 @@ public class StartCommand extends AbsCommand {
 
         if (adminExistence()){
             return createAdmin(user);
-        }
-        else if(userVerified(user.getIdentifier())){
+        } else if(userVerified(user.getIdentifier())){
             return  "You are verified";
         } else {
             return addNoVerUser(user);

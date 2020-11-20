@@ -1,17 +1,17 @@
 package Commands;
 
-import Tasks.ITaskOperation;
+import Tasks.ITaskRepository;
 import Users.IUsersOperation;
 import Users.UserBot;
 
 import java.util.ArrayList;
 
-public class CreateTaskCommand extends AbsCommand{
-    private final ITaskOperation taskOperation;
+public class CreateTaskCommand extends AbstractCommand {
+    private final ITaskRepository taskOperation;
 
-    public CreateTaskCommand(ITaskOperation iTaskOperation, IUsersOperation usersBotOperation) {
+    public CreateTaskCommand(ITaskRepository iTaskRepository, IUsersOperation usersBotOperation) {
         super("/create_task", "Create new task.", usersBotOperation);
-        taskOperation = iTaskOperation;
+        taskOperation = iTaskRepository;
     }
 
     @Override

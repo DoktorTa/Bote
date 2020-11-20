@@ -3,7 +3,7 @@ package Commands;
 import Users.IUsersOperation;
 import Users.UserBot;
 
-public class VerCommand extends AbsCommand{
+public class VerCommand extends AbstractCommand {
 
     public VerCommand(IUsersOperation userBot){
         super("/ver", "Verification user", userBot);

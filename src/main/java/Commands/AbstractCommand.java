@@ -3,13 +3,13 @@ package Commands;
 import Users.IUsersOperation;
 import Users.UserBot;
 
-public abstract class AbsCommand {
+public abstract class AbstractCommand {
 
     protected final IUsersOperation usersBot;
     protected final String identifierCommand;
     protected final String descriptionCommand;
 
-    public AbsCommand(String identifier, String description, IUsersOperation usersBotOperation){
+    public AbstractCommand(String identifier, String description, IUsersOperation usersBotOperation){
         identifierCommand = identifier;
         descriptionCommand = description;
         usersBot = usersBotOperation;

@@ -1,6 +1,6 @@
 package TelegramCommand;
 
-import Commands.AbsCommand;
+import Commands.AbstractCommand;
 import Users.UserBot;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -15,9 +15,9 @@ import java.util.logging.Logger;
 public class TelegramCommandAdapter extends BotCommand {
     private final Logger LOG;
 
-    private final AbsCommand commandTelegram;
+    private final AbstractCommand commandTelegram;
 
-    public TelegramCommandAdapter(AbsCommand command, Logger log) {
+    public TelegramCommandAdapter(AbstractCommand command, Logger log) {
         super(command.getIdentifierCommand(), command.getDescriptionCommand());
         commandTelegram = command;
         LOG = log;

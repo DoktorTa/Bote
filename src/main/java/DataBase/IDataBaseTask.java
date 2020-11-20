@@ -43,5 +43,9 @@ public interface IDataBaseTask {
      */
     boolean removeTask(String numberTask);
 
+    /**
+     *
+     */
+    String getAnswerTask(String num);
 
 }

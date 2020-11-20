@@ -1,19 +1,19 @@
 package Commands;
 
-import Tasks.ITaskOperation;
+import Tasks.ITaskRepository;
 import Users.IUsersOperation;
 import Users.UserBot;
 
-public class GetTaskByLevelCommand extends AbsCommand{
-    private final ITaskOperation taskOperation;
+public class GetTaskByLevelCommand extends AbstractTaskCommand {
 
-    public GetTaskByLevelCommand(ITaskOperation iTaskOperation, IUsersOperation usersBotOperation) {
-        super("/lvl", "Get task by level.", usersBotOperation);
-        taskOperation = iTaskOperation;
+    public GetTaskByLevelCommand(ITaskRepository iTaskRepository1, IUsersOperation usersBotOperation,
+                                 LastUserQuery mLastUserQuery) {
+        super("/lvl", "Get task by level.", usersBotOperation, iTaskRepository1, mLastUserQuery);
     }
 
     @Override
     public String getAnswer(UserBot user, String[] strings) {
-        return taskOperation.getTasksByLevel(strings[0]);
+        lastUserQuery.addQuery(user.getChatId(), "num" );
+        return iTaskRepository.getTasksByLevel(strings[0]);
     }
 }

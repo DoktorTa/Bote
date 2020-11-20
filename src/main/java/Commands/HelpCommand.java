@@ -3,7 +3,7 @@ package Commands;
 import Users.IUsersOperation;
 import Users.UserBot;
 
-public class HelpCommand extends AbsCommand {
+public class HelpCommand extends AbstractCommand {
 
     public HelpCommand(IUsersOperation usersBotOperation) {
         super("/help", "help command", usersBotOperation);

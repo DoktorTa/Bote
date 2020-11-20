@@ -3,7 +3,7 @@ package Commands;
 import Users.IUsersOperation;
 import Users.UserBot;
 
-public class DelCommand extends AbsCommand {
+public class DelCommand extends AbstractCommand {
 
     public DelCommand(IUsersOperation userBot) {
         super("/del", "Remove user from bot.", userBot);

@@ -24,6 +24,27 @@ public class MSSQLTaskTable implements IDataBaseTask {
     }
 
     @Override
+    public String getAnswerTask(String num) {
+        StringBuilder answers = new StringBuilder();
+        String query = "SELECT CorrectAnswer FROM Tasks WHERE NumberTask=" + num + ";";
+
+        ResultSet resultSet = getQuerySELECTorNull(query);
+
+        if (resultSet == null){
+            return answers.toString();
+        }
+
+        try {
+            resultSet.next();
+            answers.append(resultSet.getString("CorrectAnswer").trim());
+        } catch (SQLException se){
+            LOG.log(Level.WARNING, query + " " + se.getMessage());
+        }
+
+        return answers.toString();
+    }
+
+    @Override
     public ArrayList<String> getTaskByNumber(String number){
         ArrayList<String> task = new ArrayList<String>();
         String query = "SELECT * FROM Tasks WHERE NumberTask=" + number + ";";
@@ -107,7 +128,7 @@ public class MSSQLTaskTable implements IDataBaseTask {
     }
 
     /**
-     * Возвращает лист заданий,к= каждая строка выглядит как: "№. TextTask\n" длинна всей строки не более 51 символа.
+     * Возвращает лист заданий, каждая строка выглядит как: "№. TextTask\n" длинна всей строки не более 51 символа.
      * @param query SQl запрос который вернет необходимую выборку с полями NumberTask, TextTask.
      * @return лист заданий.
      */

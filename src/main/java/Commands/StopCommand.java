@@ -3,7 +3,7 @@ package Commands;
 import Users.IUsersOperation;
 import Users.UserBot;
 
-public class StopCommand extends AbsCommand{
+public class StopCommand extends AbstractCommand {
 
     public StopCommand(IUsersOperation userBot) {
         super("/stop", "Stops communication with the administrator, ATTENTION! You are losing your verification.", userBot);

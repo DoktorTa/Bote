@@ -1,26 +1,26 @@
 package TestTasks;
 
 import DataBase.MSSQLTaskTable;
-import Tasks.TaskOperation;
+import Tasks.TaskRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
 
-public class TestTaskOperation {
+public class TestTaskRepository {
 
     @Test
     public void testCreateTask(){
         MSSQLTaskTable mssqlTaskTable = Mockito.mock(MSSQLTaskTable.class);
         Mockito.when(mssqlTaskTable.addTask("1", "1", "Text", "Answer", "Good")).thenReturn(true);
-        TaskOperation taskOperation = new TaskOperation(mssqlTaskTable);
+        TaskRepository taskRepository = new TaskRepository(mssqlTaskTable);
 
-        Assert.assertEquals("Task create!", taskOperation.createTask("1", "1", "Text", "Answer", "Good"));
+        Assert.assertEquals("Task create!", taskRepository.createTask("1", "1", "Text", "Answer", "Good"));
 
         Mockito.when(mssqlTaskTable.addTask("1", "1", "Text", "Answer", "Good")).thenReturn(false);
 
-        Assert.assertEquals("Error task create!", taskOperation.createTask("1", "1", "Text", "Answer", "Good"));
+        Assert.assertEquals("Error task create!", taskRepository.createTask("1", "1", "Text", "Answer", "Good"));
 
     }
 
@@ -28,13 +28,13 @@ public class TestTaskOperation {
     public void testRemoveTaskByNumber(){
         MSSQLTaskTable mssqlTaskTable = Mockito.mock(MSSQLTaskTable.class);
         Mockito.when(mssqlTaskTable.removeTask("0")).thenReturn(true);
-        TaskOperation taskOperation = new TaskOperation(mssqlTaskTable);
+        TaskRepository taskRepository = new TaskRepository(mssqlTaskTable);
 
-        Assert.assertEquals("Task delete, number 0 is clear", taskOperation.removeTaskByNumber("0"));
+        Assert.assertEquals("Task delete, number 0 is clear", taskRepository.removeTaskByNumber("0"));
 
         Mockito.when(mssqlTaskTable.removeTask("0")).thenReturn(false);
 
-        Assert.assertEquals("Task not delete, number: 0", taskOperation.removeTaskByNumber("0"));
+        Assert.assertEquals("Task not delete, number: 0", taskRepository.removeTaskByNumber("0"));
     }
 
     @Test
@@ -57,9 +57,9 @@ public class TestTaskOperation {
 
         MSSQLTaskTable mssqlTaskTable = Mockito.mock(MSSQLTaskTable.class);
         Mockito.when(mssqlTaskTable.getTaskByNumber("0")).thenReturn(sqlOut);
-        TaskOperation taskOperation = new TaskOperation(mssqlTaskTable);
+        TaskRepository taskRepository = new TaskRepository(mssqlTaskTable);
 
-        Assert.assertEquals(answer, taskOperation.getTaskByNumber("0"));
+        Assert.assertEquals(answer, taskRepository.getTaskByNumber("0"));
 
     }
 
@@ -71,9 +71,9 @@ public class TestTaskOperation {
 
         MSSQLTaskTable mssqlTaskTable = Mockito.mock(MSSQLTaskTable.class);
         Mockito.when(mssqlTaskTable.getTaskByLevel("1")).thenReturn(sqlOut);
-        TaskOperation taskOperation = new TaskOperation(mssqlTaskTable);
+        TaskRepository taskRepository = new TaskRepository(mssqlTaskTable);
 
-        Assert.assertEquals(answer, taskOperation.getTasksByLevel("1"));
+        Assert.assertEquals(answer, taskRepository.getTasksByLevel("1"));
     }
 
     @Test
@@ -84,8 +84,8 @@ public class TestTaskOperation {
 
         MSSQLTaskTable mssqlTaskTable = Mockito.mock(MSSQLTaskTable.class);
         Mockito.when(mssqlTaskTable.getAllTasks()).thenReturn(sqlOut);
-        TaskOperation taskOperation = new TaskOperation(mssqlTaskTable);
+        TaskRepository taskRepository = new TaskRepository(mssqlTaskTable);
 
-        Assert.assertEquals(answer, taskOperation.getAllTasks());
+        Assert.assertEquals(answer, taskRepository.getAllTasks());
     }
 }

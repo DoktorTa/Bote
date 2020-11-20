@@ -10,11 +10,11 @@ import java.util.regex.Pattern;
  * Класс ответственен за создание задания.
  * Любое задание есть словарь.
  */
-public class TaskOperation implements ITaskOperation {
+public class TaskRepository implements ITaskRepository {
 
     public final MSSQLTaskTable tableTasks;
 
-    public TaskOperation(MSSQLTaskTable tableTask){
+    public TaskRepository(MSSQLTaskTable tableTask){
         tableTasks = tableTask;
     }
 
@@ -88,5 +88,10 @@ public class TaskOperation implements ITaskOperation {
         }
 
         return allTasksString.toString();
+    }
+
+    @Override
+    public String getAnswerTask(String num) {
+        return tableTasks.getAnswerTask(num);
     }
 }

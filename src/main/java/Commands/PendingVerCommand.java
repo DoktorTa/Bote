@@ -4,7 +4,7 @@ import Users.IUsersOperation;
 import Users.UserBot;
 
 
-public class PendingVerCommand extends AbsCommand{
+public class PendingVerCommand extends AbstractCommand {
 
     public PendingVerCommand(IUsersOperation usersBot){
         super("/pending_ver", "Displays users awaiting verification.", usersBot);
