@@ -1,13 +1,14 @@
-package Commands;
+package Commands.Task;
 
+import Commands.AbstractCommand;
 import Tasks.ITaskRepository;
-import Users.IUsersOperation;
+import Users.IUsersRepository;
 import Users.UserBot;
 
 public class RemoveTaskCommand extends AbstractCommand {
     private final ITaskRepository taskOperation;
 
-    public RemoveTaskCommand(ITaskRepository iTaskRepository, IUsersOperation usersBotOperation) {
+    public RemoveTaskCommand(ITaskRepository iTaskRepository, IUsersRepository usersBotOperation) {
         super("/remove_task", "Delete task.", usersBotOperation);
         taskOperation = iTaskRepository;
     }

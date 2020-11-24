@@ -1,15 +1,15 @@
 package Commands;
 
-import Users.IUsersOperation;
+import Users.IUsersRepository;
 import Users.UserBot;
 
 public abstract class AbstractCommand {
 
-    protected final IUsersOperation usersBot;
+    protected final IUsersRepository usersBot;
     protected final String identifierCommand;
     protected final String descriptionCommand;
 
-    public AbstractCommand(String identifier, String description, IUsersOperation usersBotOperation){
+    public AbstractCommand(String identifier, String description, IUsersRepository usersBotOperation){
         identifierCommand = identifier;
         descriptionCommand = description;
         usersBot = usersBotOperation;

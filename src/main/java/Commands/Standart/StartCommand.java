@@ -1,13 +1,14 @@
-package Commands;
+package Commands.Standart;
 
-import Users.IUsersOperation;
+import Commands.AbstractCommand;
+import Users.IUsersRepository;
 import Users.UserBot;
 
 import java.util.ArrayList;
 
 public class StartCommand extends AbstractCommand {
 
-    public StartCommand(IUsersOperation usersBot){
+    public StartCommand(IUsersRepository usersBot){
         super("/start", "Start command", usersBot);
     }
 
@@ -21,7 +22,7 @@ public class StartCommand extends AbstractCommand {
 
         if (adminExistence()){
             return createAdmin(user);
-        } else if(userVerified(user.getIdentifier())){
+        } else if(!userVerified(user.getIdentifier())){
             return  "You are verified";
         } else {
             return addNoVerUser(user);

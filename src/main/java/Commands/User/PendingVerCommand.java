@@ -1,12 +1,13 @@
-package Commands;
+package Commands.User;
 
-import Users.IUsersOperation;
+import Commands.AbstractCommand;
+import Users.IUsersRepository;
 import Users.UserBot;
 
 
 public class PendingVerCommand extends AbstractCommand {
 
-    public PendingVerCommand(IUsersOperation usersBot){
+    public PendingVerCommand(IUsersRepository usersBot){
         super("/pending_ver", "Displays users awaiting verification.", usersBot);
     }
 

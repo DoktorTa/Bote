@@ -1,11 +1,12 @@
-package Commands;
+package Commands.User;
 
-import Users.IUsersOperation;
+import Commands.AbstractCommand;
+import Users.IUsersRepository;
 import Users.UserBot;
 
 public class VerCommand extends AbstractCommand {
 
-    public VerCommand(IUsersOperation userBot){
+    public VerCommand(IUsersRepository userBot){
         super("/ver", "Verification user", userBot);
     }
 

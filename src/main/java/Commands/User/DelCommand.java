@@ -1,11 +1,12 @@
-package Commands;
+package Commands.User;
 
-import Users.IUsersOperation;
+import Commands.AbstractCommand;
+import Users.IUsersRepository;
 import Users.UserBot;
 
 public class DelCommand extends AbstractCommand {
 
-    public DelCommand(IUsersOperation userBot) {
+    public DelCommand(IUsersRepository userBot) {
         super("/del", "Remove user from bot.", userBot);
     }
 

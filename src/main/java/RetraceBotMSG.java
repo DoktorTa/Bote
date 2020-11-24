@@ -1,10 +1,17 @@
 import Commands.*;
+import Commands.Standart.HelpCommand;
+import Commands.Standart.StartCommand;
+import Commands.Standart.StopCommand;
+import Commands.Task.*;
+import Commands.User.DelCommand;
+import Commands.User.PendingVerCommand;
+import Commands.User.VerCommand;
 import DataBase.DataBaseMSSQL;
 import DataBase.MSSQLTaskTable;
 import DataBase.MSSQLUserTable;
 import Tasks.TaskRepository;
 import TelegramCommand.TelegramCommandAdapter;
-import Users.UsersOperation;
+import Users.UsersRepository;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.IBotCommand;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -32,7 +39,7 @@ public class RetraceBotMSG extends TelegramLongPollingCommandBot {
 
         DataBaseMSSQL dataBaseMSSQL = new DataBaseMSSQL(LOG);
         Statement stmt = dataBaseMSSQL.connectDataBase();
-        UsersOperation userOp = new UsersOperation(new MSSQLUserTable(LOG, stmt));
+        UsersRepository userOp = new UsersRepository(new MSSQLUserTable(LOG, stmt));
         TaskRepository taskOp = new TaskRepository(new MSSQLTaskTable(LOG, stmt));
 
         register(new TelegramCommandAdapter(new StartCommand(userOp), LOG));
@@ -63,37 +70,40 @@ public class RetraceBotMSG extends TelegramLongPollingCommandBot {
 
     @Override
     public void processNonCommandUpdate(Update update) {
-        String[] strings = new String[0];
         if (!update.hasMessage()) {
             throw new IllegalStateException("Update doesn't have a body!");
         }
+        processCommand(update.getMessage());
+    }
 
-        Message msg = update.getMessage();
+    private void processCommand(Message msg){
         Chat chat = msg.getChat();
 
-        String command = lastUserQuery.getCommand(chat.getId().toString());
-
-        String[] commandAndArgs = command.split("\\s+");
-        for (String s: commandAndArgs) {
-            System.out.println(command + "  CommandAndArgs  " + s);
-        }
-
+        String[] commandAndArgs = getCommandAndArgs(chat.getId().toString());
         IBotCommand iBotCommand = getRegisteredCommand(commandAndArgs[0]);
-
-        try {
-            strings = addArgsToCommand(msg.getText(), commandAndArgs[1]);
-        } catch (ArrayIndexOutOfBoundsException ignore){
-            strings = addArgsToCommand(msg.getText(), null);
-        }
+        String[] strings = createArgsCommand(msg.getText(), commandAndArgs);
 
         iBotCommand.processMessage(this, msg, strings);
     }
 
+    private String[] getCommandAndArgs(String chatId){
+        String command = lastUserQuery.getCommand(chatId);
+        return command.split("\\s+");
+    }
+
+    private String[] createArgsCommand(String textMSG, String[] commandAndArgs){
+        try {
+            return addArgsToCommand(textMSG, commandAndArgs[1]);
+        } catch (ArrayIndexOutOfBoundsException ignore){
+            return addArgsToCommand(textMSG, null);
+        }
+    }
+
     private String[] addArgsToCommand(String msgText, String argsCommand){
-        ArrayList<String>  commandText= new ArrayList<String>(Arrays.asList(msgText.split("\\s+")));
+        ArrayList<String>  commandText= new ArrayList<>(Arrays.asList(msgText.split("\\s+")));
 
         if (argsCommand != null){
-            ArrayList<String> commandArgs = new ArrayList<String>(Arrays.asList(argsCommand.split("\\s+")));
+            ArrayList<String> commandArgs = new ArrayList<>(Arrays.asList(argsCommand.split("\\s+")));
             commandArgs.addAll(commandText);
             return commandArgs.toArray(new String[0]);
         } else {

@@ -1,25 +1,22 @@
-package Commands;
+package Commands.Standart;
 
-import Users.IUsersOperation;
+import Commands.AbstractCommand;
+import Users.IUsersRepository;
 import Users.UserBot;
 
 public class HelpCommand extends AbstractCommand {
 
-    public HelpCommand(IUsersOperation usersBotOperation) {
+    public HelpCommand(IUsersRepository usersBotOperation) {
         super("/help", "help command", usersBotOperation);
     }
 
     @Override
     public String getAnswer(UserBot user, String[] strings) {
-        String answer = "";
-
         if (userIsAdmin(user.getIdentifier())) {
-            answer = adminCommandList();
+            return adminCommandList();
         } else {
-            answer = userCommandList(new StringBuilder());
+            return userCommandList(new StringBuilder());
         }
-
-        return answer;
     }
 
     private String adminCommandList(){
@@ -60,11 +57,14 @@ public class HelpCommand extends AbstractCommand {
 
                 .append("/all_tasks").append(" - показ всех номеров заданий.\n")
 
+                .append("/answer").append(" - получение ответа на задание.\n")
+                .append(" Args: \n")
+                .append("    Number task - номер задания.")
+                .append("    Answer - ваш ответ на задание.")
+
                 .append("/start").append(" - старт он и в африке старт, ожидайте.\n")
 
                 .append("/stop").append(" - добро пожаловать на все 3 доступные человеку оси координат, мы не будем скучать.\n");
-
-
         return help.toString();
     }
 }

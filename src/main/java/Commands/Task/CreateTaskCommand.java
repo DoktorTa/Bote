@@ -1,7 +1,8 @@
-package Commands;
+package Commands.Task;
 
+import Commands.AbstractCommand;
 import Tasks.ITaskRepository;
-import Users.IUsersOperation;
+import Users.IUsersRepository;
 import Users.UserBot;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 public class CreateTaskCommand extends AbstractCommand {
     private final ITaskRepository taskOperation;
 
-    public CreateTaskCommand(ITaskRepository iTaskRepository, IUsersOperation usersBotOperation) {
+    public CreateTaskCommand(ITaskRepository iTaskRepository, IUsersRepository usersBotOperation) {
         super("/create_task", "Create new task.", usersBotOperation);
         taskOperation = iTaskRepository;
     }
@@ -31,23 +32,24 @@ public class CreateTaskCommand extends AbstractCommand {
     }
 
     private ArrayList<String> getFieldsTask(String[] strings){
-        ArrayList<String> fieldsTask = new ArrayList<String>();
-        String field = "";
+        ArrayList<String> fieldsTask = new ArrayList<>();
+        StringBuilder field = new StringBuilder();
         String delimiter = ">^<";
 
         for (String word: strings) {
 
             if (word.equals(delimiter)){
-                fieldsTask.add(field);
-                field = "";
+                fieldsTask.add(field.toString());
+                field = new StringBuilder();
                 if (fieldsTask.size() == 5){
                     break;
                 }
             } else {
-                field += word + " ";
+                field.append(word).append(" ");
             }
         }
 
         return fieldsTask;
     }
+
 }

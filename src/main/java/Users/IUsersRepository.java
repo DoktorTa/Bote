@@ -2,7 +2,7 @@ package Users;
 
 import java.util.ArrayList;
 
-public interface IUsersOperation {
+public interface IUsersRepository {
 
     /**
      * Добавляет нового администратора.

@@ -1,11 +1,12 @@
-package Commands;
+package Commands.Standart;
 
-import Users.IUsersOperation;
+import Commands.AbstractCommand;
+import Users.IUsersRepository;
 import Users.UserBot;
 
 public class StopCommand extends AbstractCommand {
 
-    public StopCommand(IUsersOperation userBot) {
+    public StopCommand(IUsersRepository userBot) {
         super("/stop", "Stops communication with the administrator, ATTENTION! You are losing your verification.", userBot);
     }
 

@@ -1,12 +1,13 @@
-package Commands;
+package Commands.Task;
 
+import Commands.LastUserQuery;
 import Tasks.ITaskRepository;
-import Users.IUsersOperation;
+import Users.IUsersRepository;
 import Users.UserBot;
 
 public class GetTaskByNumberCommand extends AbstractTaskCommand {
 
-    public GetTaskByNumberCommand(ITaskRepository iTaskRepository1, IUsersOperation usersBotOperation,
+    public GetTaskByNumberCommand(ITaskRepository iTaskRepository1, IUsersRepository usersBotOperation,
                                   LastUserQuery mLastUserQuery) {
         super("/num", "Get task by number", usersBotOperation, iTaskRepository1, mLastUserQuery);
     }

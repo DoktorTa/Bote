@@ -1,13 +1,14 @@
-package Commands;
+package Commands.Task;
 
+import Commands.LastUserQuery;
 import Tasks.ITaskRepository;
-import Users.IUsersOperation;
+import Users.IUsersRepository;
 import Users.UserBot;
 
 public class GetAnswerTaskCommand extends AbstractTaskCommand {
 
 
-    public GetAnswerTaskCommand(IUsersOperation usersBotOperation, ITaskRepository taskOperation, LastUserQuery lastUserQuery1) {
+    public GetAnswerTaskCommand(IUsersRepository usersBotOperation, ITaskRepository taskOperation, LastUserQuery lastUserQuery1) {
         super("/answer", "Get answer for task.", usersBotOperation, taskOperation, lastUserQuery1);
     }
 
@@ -23,6 +24,11 @@ public class GetAnswerTaskCommand extends AbstractTaskCommand {
         return "Correct answer: " + correctAnswer;
     }
 
+    /**
+     * Создает ответ пользователя как строку.
+     * @param strings аргументы ответа пользователя.
+     * @return строка ответа пользователя.
+     */
     private String createUserAnswer(String[] strings){
         StringBuilder userAnswer = new StringBuilder();
 
@@ -34,6 +40,12 @@ public class GetAnswerTaskCommand extends AbstractTaskCommand {
         return userAnswer.toString();
     }
 
+    /**
+     * Проверяет что ответ пользователя и правильный совпадают.
+     * @param correctAnswer правильный ответ.
+     * @param userAnswer пользовательский ответ.
+     * @return совпадает или нет.
+     */
     private boolean checkAnswer(String correctAnswer, String userAnswer){
         return correctAnswer.equals(userAnswer);
     }

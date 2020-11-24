@@ -4,13 +4,13 @@ import DataBase.IDataBaseUser;
 
 import java.util.ArrayList;
 
-public class UsersOperation implements IUsersOperation {
+public class UsersRepository implements IUsersRepository {
     private final NoVerifiedUsers noVerUsersGroup;
 
     // Можно обобщить и убрать базу данных в принципе.
     private final IDataBaseUser usersTable;
 
-    public UsersOperation(IDataBaseUser mssqlUserTable){
+    public UsersRepository(IDataBaseUser mssqlUserTable){
         usersTable = mssqlUserTable;
         noVerUsersGroup = new NoVerifiedUsers();
     }
