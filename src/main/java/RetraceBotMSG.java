@@ -56,6 +56,7 @@ public class RetraceBotMSG extends TelegramLongPollingCommandBot {
         register(new TelegramCommandAdapter(new ShowAllTasksCommand(taskOp, userOp, lastUserQuery), LOG));
         register(new TelegramCommandAdapter(new GetTaskByLevelCommand(taskOp, userOp, lastUserQuery), LOG));
         register(new TelegramCommandAdapter(new GetAnswerTaskCommand(userOp, taskOp, lastUserQuery), LOG));
+        register(new TelegramCommandAdapter(new ChoiceLvlTaskCommand(userOp, taskOp, lastUserQuery), LOG));
     }
 
     @Override

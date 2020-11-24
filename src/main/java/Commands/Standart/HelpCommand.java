@@ -47,22 +47,11 @@ public class HelpCommand extends AbstractCommand {
     }
 
     private String userCommandList(StringBuilder help){
-        help.append("/lvl").append(" - показ всех заданий соответствующих уровню.\n")
-                .append(" Args: \n")
-                .append("    Level - уровень заданий.\n")
-
-                .append("/num").append(" - показ задания под номером.\n")
-                .append(" Args: \n")
-                .append("    Number - номер задания.\n")
+        help.append("/choice_lvl").append(" - выбор уровня заданий.\n")
 
                 .append("/all_tasks").append(" - показ всех номеров заданий.\n")
 
-                .append("/answer").append(" - получение ответа на задание.\n")
-                .append(" Args: \n")
-                .append("    Number task - номер задания.")
-                .append("    Answer - ваш ответ на задание.")
-
-                .append("/start").append(" - старт он и в африке старт, ожидайте.\n")
+                .append("/start").append(" - старт он и в Африке старт, ожидайте.\n")
 
                 .append("/stop").append(" - добро пожаловать на все 3 доступные человеку оси координат, мы не будем скучать.\n");
         return help.toString();

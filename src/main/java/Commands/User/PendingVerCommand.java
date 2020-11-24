@@ -14,7 +14,7 @@ public class PendingVerCommand extends AbstractCommand {
     @Override
     public String getAnswer(UserBot user, String[] strings) {
         if (userIsAdmin(user.getIdentifier())) {
-            return getBeadrollNoVerUser();
+            return getBedrollNoVerUser();
         }
 
         return "";
@@ -23,7 +23,7 @@ public class PendingVerCommand extends AbstractCommand {
     /**
      * @return String список не верифицированных пользователей.
      */
-    private String getBeadrollNoVerUser(){
+    private String getBedrollNoVerUser(){
         return usersBot.getUsersGroupString();
     }
 }

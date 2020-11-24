@@ -7,7 +7,7 @@ public class LastUserQuery {
     private final ConcurrentHashMap<String, String> lastQuery;
 
     public LastUserQuery(){
-        lastQuery = new ConcurrentHashMap<String, String>();
+        lastQuery = new ConcurrentHashMap<>();
     }
 
     public void addQuery(String chatId, String nextCommand){

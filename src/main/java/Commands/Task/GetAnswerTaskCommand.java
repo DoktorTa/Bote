@@ -17,11 +17,14 @@ public class GetAnswerTaskCommand extends AbstractTaskCommand {
         String correctAnswer = iTaskRepository.getAnswerTask(strings[0]);
         String userAnswer = createUserAnswer(strings);
 
+        int next_task = Integer.parseInt(strings[0]) + 1;
+        lastUserQuery.addQuery(user.getChatId(), "num " + next_task);
+
         if (checkAnswer(correctAnswer, userAnswer.substring(2).trim())){
-            return "Correct answer!";
+            return "Correct answer!\n" + "/all_tasks or /next";
         }
 
-        return "Correct answer: " + correctAnswer;
+        return "No correct answer. \nCorrect answer: " + correctAnswer + "\n /all_tasks or /next";
     }
 
     /**

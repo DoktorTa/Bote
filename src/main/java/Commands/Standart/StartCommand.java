@@ -23,7 +23,7 @@ public class StartCommand extends AbstractCommand {
         if (adminExistence()){
             return createAdmin(user);
         } else if(!userVerified(user.getIdentifier())){
-            return  "You are verified";
+            return  "You are verified, input /help.";
         } else {
             return addNoVerUser(user);
         }
@@ -63,7 +63,7 @@ public class StartCommand extends AbstractCommand {
      */
     private String createAdmin(UserBot user){
         usersBot.addAdmin(user);
-        return "Hello my admin!";
+        return "Hello my admin, send /help.";
     }
 
 }

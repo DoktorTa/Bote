@@ -5,6 +5,9 @@ import Tasks.ITaskRepository;
 import Users.IUsersRepository;
 import Users.UserBot;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class GetTaskByNumberCommand extends AbstractTaskCommand {
 
     public GetTaskByNumberCommand(ITaskRepository iTaskRepository1, IUsersRepository usersBotOperation,
@@ -14,8 +17,25 @@ public class GetTaskByNumberCommand extends AbstractTaskCommand {
 
     @Override
     public String getAnswer(UserBot user, String[] strings) {
-        String taskAnswer = iTaskRepository.getTaskByNumber(strings[0]);
+        String taskInfo = iTaskRepository.getTaskByNumber(strings[0]);
         lastUserQuery.addQuery(user.getChatId(), "answer " + strings[0]);
-        return taskAnswer;
+
+        taskInfo = addPostScript(taskInfo);
+
+        return taskInfo;
+    }
+
+    private String addPostScript(String taskInfo){
+        Pattern pattern = Pattern.compile("(?<=Number: )([0-9]*)");
+        Matcher matcher = pattern.matcher(taskInfo);
+
+        while (matcher.find()) {
+            String levelTask = taskInfo.substring(matcher.start(), matcher.end());
+            if (levelTask.equals("1")){
+                taskInfo += "\n \nP.S. Если ответов несколько то вводить их через пробел.";
+            }
+        }
+
+        return taskInfo;
     }
 }
