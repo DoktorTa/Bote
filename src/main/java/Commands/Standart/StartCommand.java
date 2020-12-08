@@ -29,7 +29,7 @@ public class StartCommand extends AbstractCommand {
         }
     }
 
-    /**
+    /**t
      * @return boolean создан админ.
      */
     private boolean adminExistence(){

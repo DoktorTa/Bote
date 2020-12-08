@@ -38,4 +38,5 @@ public class TelegramCommandAdapter extends BotCommand {
             LOG.log(Level.WARNING, te.getMessage());
         }
     }
+
 }

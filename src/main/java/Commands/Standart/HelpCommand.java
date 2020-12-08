@@ -51,9 +51,9 @@ public class HelpCommand extends AbstractCommand {
 
                 .append("/all_tasks").append(" - показ всех номеров заданий.\n")
 
-                .append("/start").append(" - старт он и в Африке старт, ожидайте.\n")
+                .append("/start").append(" - старт он и в Африке старт, ожидайте.\n");
 
-                .append("/stop").append(" - добро пожаловать на все 3 доступные человеку оси координат, мы не будем скучать.\n");
+                //.append("/stop").append(" - добро пожаловать на все 3 доступные человеку оси координат, мы не будем скучать.\n");
         return help.toString();
     }
 }

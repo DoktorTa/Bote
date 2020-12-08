@@ -1,14 +1,12 @@
-import DataBase.DataBaseMSSQL;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.sql.SQLException;
 import java.util.logging.Logger;
 
 public class StartBot {
 
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+    public static void main(String[] args){
         greeting();
         startInitBot();
     }
@@ -31,4 +29,6 @@ public class StartBot {
             e.printStackTrace();
         }
     }
+
+
 }
