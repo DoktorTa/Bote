@@ -10,7 +10,7 @@ public interface IDataBaseUser {
      * @param isAdmin флаг администратора (0 - если нет, 1 если да).
      * @param chatId айди чата с пользователем.
      */
-    void addUserToDataBase(String identifier, String isAdmin, String chatId);
+    void addUserToDataBase(String identifier, String chatId, int points, int tasksComplete);
 
     /**
      * Удаляет пользователя из базы данных.
@@ -23,6 +23,8 @@ public interface IDataBaseUser {
      * @return идентификатор администратора.
      */
     String getAdminIdentifier();
+
+    int getAllCompleteTaskUser(String identifier);
 
     /**
      * Возвращает пользователя по идентификатору.

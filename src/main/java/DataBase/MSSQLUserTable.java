@@ -18,11 +18,12 @@ public class MSSQLUserTable implements IDataBaseUser {
     }
 
     @Override
-    public void addUserToDataBase(String identifier, String isAdmin, String chatId) {
-        String query = "INSERT INTO Users " + "VALUES ('" +
-                identifier + "', " +
-                isAdmin + ", '" +
-                chatId + "')";
+    public void addUserToDataBase(String identifier, String chatId, int points, int taskComplete) {
+        String query = "INSERT INTO Users " + "VALUES (" +
+                identifier + ", " +
+                taskComplete + ", " +
+                points + ", "+
+                chatId + ")";
         getQueryINSERT_DELETE_UPDATE(query);
     }
 
@@ -38,6 +39,11 @@ public class MSSQLUserTable implements IDataBaseUser {
         ArrayList<String> fieldsAnswer = new ArrayList<>();
         fieldsAnswer.add("IdentifierUser");
         return getResultRequestOrNull(fieldsAnswer, query).get(0);
+    }
+
+    @Override
+    public int getAllCompleteTaskUser(String identifier) {
+        return 0;
     }
 
     @Override

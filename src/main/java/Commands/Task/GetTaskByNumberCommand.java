@@ -2,7 +2,7 @@ package Commands.Task;
 
 import Commands.LastUserQuery;
 import Tasks.ITaskRepository;
-import Users.IUsersRepository;
+import Users.IUserRepository;
 import Users.UserBot;
 
 import java.util.regex.Matcher;
@@ -10,9 +10,8 @@ import java.util.regex.Pattern;
 
 public class GetTaskByNumberCommand extends AbstractTaskCommand {
 
-    public GetTaskByNumberCommand(ITaskRepository iTaskRepository1, IUsersRepository usersBotOperation,
-                                  LastUserQuery mLastUserQuery) {
-        super("/num", "Get task by number", usersBotOperation, iTaskRepository1, mLastUserQuery);
+    public GetTaskByNumberCommand(IUserRepository iUserRepository, ITaskRepository iTaskRepository1, LastUserQuery mLastUserQuery) {
+        super("/num", "Get task by number", iUserRepository, iTaskRepository1, mLastUserQuery);
     }
 
     @Override
@@ -32,7 +31,8 @@ public class GetTaskByNumberCommand extends AbstractTaskCommand {
         while (matcher.find()) {
             String levelTask = taskInfo.substring(matcher.start(), matcher.end());
             if (levelTask.equals("1")){
-                taskInfo += "\n \nP.S. Если ответов несколько то вводить их через пробел.";
+                taskInfo += "\n \n!Если ответов несколько то вводить их через пробел.\n" +
+                        "!!Номера ответов вводить по возрастанию.";
             }
         }
 

@@ -3,15 +3,13 @@ import Commands.Standart.HelpCommand;
 import Commands.Standart.StartCommand;
 import Commands.Standart.StopCommand;
 import Commands.Task.*;
-import Commands.User.DelCommand;
-import Commands.User.PendingVerCommand;
-import Commands.User.VerCommand;
 import DataBase.DataBaseMSSQL;
 import DataBase.MSSQLTaskTable;
 import DataBase.MSSQLUserTable;
 import Tasks.TaskRepository;
 import TelegramCommand.TelegramCommandAdapter;
-import Users.UsersRepository;
+import Users.IUserRepository;
+import Users.UserRepository;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.IBotCommand;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -39,22 +37,16 @@ public class RetraceBotMSG extends TelegramLongPollingCommandBot {
 
         DataBaseMSSQL dataBaseMSSQL = new DataBaseMSSQL(LOG);
         Statement stmt = dataBaseMSSQL.connectDataBase();
-        UsersRepository userOp = new UsersRepository(new MSSQLUserTable(LOG, stmt));
+        IUserRepository userOp = new UserRepository(new MSSQLUserTable(LOG, stmt));
         TaskRepository taskOp = new TaskRepository(new MSSQLTaskTable(LOG, stmt));
 
-        register(new TelegramCommandAdapter(new StartCommand(userOp), LOG));
-        register(new TelegramCommandAdapter(new PendingVerCommand(userOp), LOG));
-        register(new TelegramCommandAdapter(new VerCommand(userOp), LOG));
-        register(new TelegramCommandAdapter(new StopCommand(userOp), LOG));
-        register(new TelegramCommandAdapter(new DelCommand(userOp), LOG));
-        register(new TelegramCommandAdapter(new HelpCommand(userOp), LOG));
+        register(new TelegramCommandAdapter(new StartCommand(userOp, lastUserQuery), LOG));
+        register(new TelegramCommandAdapter(new StopCommand(userOp, lastUserQuery), LOG));
+        register(new TelegramCommandAdapter(new HelpCommand(userOp, lastUserQuery), LOG));
 
-        register(new TelegramCommandAdapter(new CreateTaskCommand(taskOp, userOp), LOG));
-        register(new TelegramCommandAdapter(new RemoveTaskCommand(taskOp, userOp), LOG));
-
-        register(new TelegramCommandAdapter(new GetTaskByNumberCommand(taskOp, userOp, lastUserQuery), LOG));
-        register(new TelegramCommandAdapter(new ShowAllTasksCommand(taskOp, userOp, lastUserQuery), LOG));
-        register(new TelegramCommandAdapter(new GetTaskByLevelCommand(taskOp, userOp, lastUserQuery), LOG));
+        register(new TelegramCommandAdapter(new GetTaskByNumberCommand(userOp, taskOp, lastUserQuery), LOG));
+        register(new TelegramCommandAdapter(new ShowAllTasksCommand(userOp, taskOp, lastUserQuery), LOG));
+        register(new TelegramCommandAdapter(new GetTaskByLevelCommand(userOp, taskOp, lastUserQuery), LOG));
         register(new TelegramCommandAdapter(new GetAnswerTaskCommand(userOp, taskOp, lastUserQuery), LOG));
         register(new TelegramCommandAdapter(new ChoiceLvlTaskCommand(userOp, taskOp, lastUserQuery), LOG));
     }
@@ -80,9 +72,11 @@ public class RetraceBotMSG extends TelegramLongPollingCommandBot {
     private void processCommand(Message msg){
         Chat chat = msg.getChat();
 
+        String textMsg = msg.getText().replace("/", "");
+
         String[] commandAndArgs = getCommandAndArgs(chat.getId().toString());
         IBotCommand iBotCommand = getRegisteredCommand(commandAndArgs[0]);
-        String[] strings = createArgsCommand(msg.getText(), commandAndArgs);
+        String[] strings = createArgsCommand(textMsg, commandAndArgs);
 
         iBotCommand.processMessage(this, msg, strings);
     }

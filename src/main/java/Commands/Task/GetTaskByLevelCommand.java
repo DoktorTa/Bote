@@ -2,14 +2,15 @@ package Commands.Task;
 
 import Commands.LastUserQuery;
 import Tasks.ITaskRepository;
-import Users.IUsersRepository;
+import Users.IUserRepository;
 import Users.UserBot;
 
 public class GetTaskByLevelCommand extends AbstractTaskCommand {
 
-    public GetTaskByLevelCommand(ITaskRepository iTaskRepository1, IUsersRepository usersBotOperation,
-                                 LastUserQuery mLastUserQuery) {
-        super("/lvl", "Get task by level.", usersBotOperation, iTaskRepository1, mLastUserQuery);
+    public GetTaskByLevelCommand(IUserRepository iUserRepository,
+                                 ITaskRepository iTaskRepository1, LastUserQuery mLastUserQuery) {
+        super("/lvl", "Get task by level.",
+                iUserRepository, iTaskRepository1, mLastUserQuery);
     }
 
     @Override

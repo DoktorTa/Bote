@@ -70,10 +70,10 @@ public class TaskRepository implements ITaskRepository {
         ArrayList<String> allTasks = tableTasks.getTaskByLevel(levelTasks);
         StringBuilder tasksString = new StringBuilder();
 
-        tasksString.append("Level all task this table: ").append(levelTasks).append("\n");
+        tasksString.append("Уровень всех показанных заданий: ").append(levelTasks).append("\n");
 
         for (String allTask : allTasks) {
-            tasksString.append(allTask).append("\n");
+            tasksString.append("/").append(allTask).append("\n");
         }
 
         return tasksString.toString();    }
@@ -84,7 +84,7 @@ public class TaskRepository implements ITaskRepository {
         StringBuilder allTasksString = new StringBuilder();
 
         for (String allTask : allTasks) {
-            allTasksString.append(allTask).append("\n");
+            allTasksString.append("/").append(allTask).append("\n");
         }
 
         return allTasksString.toString();

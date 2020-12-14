@@ -3,20 +3,16 @@ package Commands.Task;
 import Commands.AbstractCommand;
 import Commands.LastUserQuery;
 import Tasks.ITaskRepository;
-import Users.IUsersRepository;
+import Users.IUserRepository;
 
 public abstract class AbstractTaskCommand extends AbstractCommand {
 
     protected final ITaskRepository iTaskRepository;
-    protected final LastUserQuery lastUserQuery;
 
-
-    public AbstractTaskCommand(String identifier, String description,
-                               IUsersRepository usersBotOperation, ITaskRepository taskOperation,
-                               LastUserQuery lastUserQuery1) {
-        super(identifier, description, usersBotOperation);
+    public AbstractTaskCommand(String identifier, String description, IUserRepository iUserRepository,
+                               ITaskRepository taskOperation, LastUserQuery lastUserQuery) {
+        super(identifier, description, iUserRepository, lastUserQuery);
         iTaskRepository = taskOperation;
-        lastUserQuery = lastUserQuery1;
     }
 
 }

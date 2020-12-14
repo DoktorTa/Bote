@@ -1,15 +1,14 @@
 package Commands.Standart;
 
 import Commands.AbstractCommand;
-import Users.IUsersRepository;
+import Commands.LastUserQuery;
+import Users.IUserRepository;
 import Users.UserBot;
-
-import java.util.ArrayList;
 
 public class StartCommand extends AbstractCommand {
 
-    public StartCommand(IUsersRepository usersBot){
-        super("/start", "Start command", usersBot);
+    public StartCommand(IUserRepository iUserRepository, LastUserQuery lastUserQuery){
+        super("/start", "Start command", iUserRepository, lastUserQuery);
     }
 
     /**
@@ -19,51 +18,11 @@ public class StartCommand extends AbstractCommand {
      */
     @Override
     public String getAnswer(UserBot user, String[] strings){
+        iUsersRepository.createUser(user.getIdentifier(), user.getChatId());
+        lastUserQuery.addQuery(user.getChatId(), "help");
 
-        if (adminExistence()){
-            return createAdmin(user);
-        } else if(!userVerified(user.getIdentifier())){
-            return  "You are verified, input /help.";
-        } else {
-            return addNoVerUser(user);
-        }
+        String hello_string = "Привет, я бот который поможет тебе выяснить свои пробелы в знаниях программирования. \n" +
+                "Если ты готов начать, то отправь любой символ.";
+        return hello_string;
     }
-
-    /**t
-     * @return boolean создан админ.
-     */
-    private boolean adminExistence(){
-        return usersBot.getAdminIdentifier() == null;
-    }
-
-    /**
-     * Проверяет проверен ли пользователь до этого.
-     * @param identifier идентификатор пользователя.
-     * @return проверен ли пользователь до этого.
-     */
-    private boolean userVerified(String identifier){
-        ArrayList<String> userFromVer = usersBot.getUserFromVerifiedUsers(identifier);
-        return userFromVer.isEmpty();
-    }
-
-    /**
-     *
-     * @param user пользователь телеграмма.
-     * @return String пользователь верифицирован.
-     */
-    private String addNoVerUser(UserBot user){
-        usersBot.addUserToNoVerifiedUsers(user);
-        return "Welcome, await administrator verification.";
-    }
-
-    /**
-     * Создает аккаунт администратора для первого пользователя нажавшего /start.
-     * @param user пользователь телеграмма.
-     * @return String приветствие администратора.
-     */
-    private String createAdmin(UserBot user){
-        usersBot.addAdmin(user);
-        return "Hello my admin, send /help.";
-    }
-
 }

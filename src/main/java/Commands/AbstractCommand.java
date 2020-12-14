@@ -1,25 +1,21 @@
 package Commands;
 
-import Users.IUsersRepository;
+import Users.IUserRepository;
 import Users.UserBot;
 
 public abstract class AbstractCommand {
 
-    protected final IUsersRepository usersBot;
+    protected final LastUserQuery lastUserQuery;
     protected final String identifierCommand;
     protected final String descriptionCommand;
+    protected final IUserRepository iUsersRepository;
 
-    public AbstractCommand(String identifier, String description, IUsersRepository usersBotOperation){
+    public AbstractCommand(String identifier, String description,
+                           IUserRepository iUsersRepository1, LastUserQuery lastUserQuery1){
         identifierCommand = identifier;
         descriptionCommand = description;
-        usersBot = usersBotOperation;
-    }
-
-    /**
-     * @return является ли пользователь администратором.
-     */
-    protected boolean userIsAdmin(String identifier){
-        return usersBot.getAdminIdentifier().replace(" ", "").equals(identifier);
+        lastUserQuery = lastUserQuery1;
+        iUsersRepository = iUsersRepository1;
     }
 
     public String getDescriptionCommand(){

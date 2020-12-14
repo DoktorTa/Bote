@@ -2,14 +2,14 @@ package Commands.Task;
 
 import Commands.LastUserQuery;
 import Tasks.ITaskRepository;
-import Users.IUsersRepository;
+import Users.IUserRepository;
 import Users.UserBot;
 
 public class GetAnswerTaskCommand extends AbstractTaskCommand {
 
 
-    public GetAnswerTaskCommand(IUsersRepository usersBotOperation, ITaskRepository taskOperation, LastUserQuery lastUserQuery1) {
-        super("/answer", "Get answer for task.", usersBotOperation, taskOperation, lastUserQuery1);
+    public GetAnswerTaskCommand(IUserRepository iUserRepository, ITaskRepository taskOperation, LastUserQuery lastUserQuery1) {
+        super("/answer", "Get answer for task.", iUserRepository, taskOperation, lastUserQuery1);
     }
 
     @Override
@@ -21,10 +21,11 @@ public class GetAnswerTaskCommand extends AbstractTaskCommand {
         lastUserQuery.addQuery(user.getChatId(), "num " + next_task);
 
         if (checkAnswer(correctAnswer, userAnswer.substring(2).trim())){
-            return "Correct answer!\n" + "/all_tasks or /next";
+            return "И это правильный ответ!\n" + "/all_tasks или /next";
         }
 
-        return "No correct answer. \nCorrect answer: " + correctAnswer + "\n /all_tasks or /next";
+        return "Это уже не в какие ворота не лезет!. \nВот правильный ответ, а не твоя стрепня: "
+                + correctAnswer + "\n /all_tasks or /next";
     }
 
     /**
