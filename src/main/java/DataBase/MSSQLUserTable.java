@@ -34,14 +34,6 @@ public class MSSQLUserTable implements IDataBaseUser {
     }
 
     @Override
-    public String getAdminIdentifier() {
-        String query = "SELECT * FROM Users WHERE IsAdmin=1;";
-        ArrayList<String> fieldsAnswer = new ArrayList<>();
-        fieldsAnswer.add("IdentifierUser");
-        return getResultRequestOrNull(fieldsAnswer, query).get(0);
-    }
-
-    @Override
     public int getAllCompleteTaskUser(String identifier) {
         return 0;
     }

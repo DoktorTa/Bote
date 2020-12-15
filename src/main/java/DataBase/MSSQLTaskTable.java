@@ -76,26 +76,6 @@ public class MSSQLTaskTable implements IDataBaseTask {
         return getListTasks(query);
     }
 
-    @Override
-    public boolean addTask(String levelTask, String points,
-                           String textTask, String textAnswer, String correctAnswer){
-
-        String numberTask = getNumberNextTask();
-        String query = "INSERT INTO Tasks " + "VALUES (" +
-                numberTask + ", " +
-                levelTask + ", " +
-                points + ", '" +
-                textTask + "', '" +
-                textAnswer + "', '" +
-                correctAnswer + "')";
-        return getQueryINSERT_DELETE_UPDATE(query);
-    }
-
-    @Override
-    public boolean removeTask(String numberTask) {
-        String query = "DELETE FROM Tasks WHERE NumberTask=" + numberTask + ";";
-        return getQueryINSERT_DELETE_UPDATE(query);
-    }
 
     /**
      * Метод для отправки запросов с типом SELECT.
@@ -111,20 +91,6 @@ public class MSSQLTaskTable implements IDataBaseTask {
         }
 
         return resultSet;
-    }
-
-    /**
-     Метод для отправки запросов типа INSERT, DELETE, UPDATE.
-     @return false если во время выполнения запроса возникла ошибка.
-     */
-    private boolean getQueryINSERT_DELETE_UPDATE(String query){
-        try {
-            stmt.executeUpdate(query);
-            return true;
-        } catch (SQLException se){
-            LOG.log(Level.WARNING, query + " " + se.getMessage());
-            return false;
-        }
     }
 
     /**
@@ -156,43 +122,4 @@ public class MSSQLTaskTable implements IDataBaseTask {
         return task;
     }
 
-    /**
-     * Возвращает не использованный номер.
-     * @return номер который можно использовать при создании задания.
-     */
-    private String getNumberNextTask(){
-        ArrayList<Integer> allNumber = getTaskAllNumber();
-        Integer inc = 1;
-
-        while (allNumber.contains(inc)){
-            inc++;
-        }
-
-        return inc.toString();
-    }
-
-    /**
-     * Возвращает лист всех использованных номеров.
-     * @return лист всех использованных номеров
-     */
-    public ArrayList<Integer> getTaskAllNumber() {
-        ArrayList<Integer> task = new ArrayList<Integer>();
-        String query = "SELECT NumberTask FROM Tasks;";
-
-        ResultSet resultSet = getQuerySELECTorNull(query);
-
-        if (resultSet == null){
-            return task;
-        }
-
-        try {
-            while (resultSet.next()) {
-                task.add(resultSet.getInt("NumberTask"));
-            }
-        } catch (SQLException se){
-            LOG.log(Level.WARNING, query + " " + se.getMessage());
-        }
-
-        return task;
-    }
 }

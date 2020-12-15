@@ -19,28 +19,6 @@ public class TaskRepository implements ITaskRepository {
     }
 
     @Override
-    public String createTask(String levelTask, String points, String textTask, String textAnswer, String correctAnswer) {
-        if (tableTasks.addTask(levelTask, points, textTask, textAnswer, correctAnswer)){
-            return "Task create!";
-        } else {
-            return "Error task create!";
-        }
-    }
-
-    @Override
-    public String removeTaskByNumber(String numberTask) {
-        String answer;
-
-        if (tableTasks.removeTask(numberTask)){
-            answer = "Task delete, number " + numberTask + " is clear";
-        } else {
-            answer = "Task not delete, number: " + numberTask;
-        }
-
-        return answer;
-    }
-
-    @Override
     public String getTaskByNumber(String numberTask) {
         ArrayList<String> task = tableTasks.getTaskByNumber(numberTask);
         StringBuilder answer = new StringBuilder();
@@ -72,8 +50,8 @@ public class TaskRepository implements ITaskRepository {
 
         tasksString.append("Уровень всех показанных заданий: ").append(levelTasks).append("\n");
 
-        for (String allTask : allTasks) {
-            tasksString.append("/").append(allTask).append("\n");
+        for (String task : allTasks) {
+            tasksString.append("/").append(task).append("\n");
         }
 
         return tasksString.toString();    }
@@ -94,4 +72,5 @@ public class TaskRepository implements ITaskRepository {
     public String getAnswerTask(String num) {
         return tableTasks.getAnswerTask(num);
     }
+
 }

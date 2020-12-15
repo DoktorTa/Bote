@@ -88,18 +88,19 @@ public class RetraceBotMSG extends TelegramLongPollingCommandBot {
 
     private String[] createArgsCommand(String textMSG, String[] commandAndArgs){
         try {
-            return addArgsToCommand(textMSG, commandAndArgs[1]);
+            return addArgsToCommand(textMSG, commandAndArgs);
         } catch (ArrayIndexOutOfBoundsException ignore){
             return addArgsToCommand(textMSG, null);
         }
     }
 
-    private String[] addArgsToCommand(String msgText, String argsCommand){
-        ArrayList<String>  commandText= new ArrayList<>(Arrays.asList(msgText.split("\\s+")));
+    private String[] addArgsToCommand(String msgText, String[] argsCommand){
+        ArrayList<String> commandText = new ArrayList<>(Arrays.asList(msgText.split("\\s+")));
 
-        if (argsCommand != null){
-            ArrayList<String> commandArgs = new ArrayList<>(Arrays.asList(argsCommand.split("\\s+")));
+        if ((argsCommand != null) && (argsCommand[1] != null)){
+            ArrayList<String> commandArgs = new ArrayList<>(Arrays.asList(argsCommand[1].split("\\s+")));
             commandArgs.addAll(commandText);
+
             return commandArgs.toArray(new String[0]);
         } else {
             return commandText.toArray(new String[0]);

@@ -21,11 +21,3 @@ public class ShowAllTasksCommand extends AbstractTaskCommand {
 
 
 }
-
-/*
-* 1. Интерфейс Map в java реализуют:
-2. Как проверить принадлежность к классу
-3. Версии Java обладающие LTS
-4. Как зовут создателя языка python
-5. Напишите симфонию.
-* */

@@ -1,24 +1,6 @@
 package Tasks;
 
-public interface ITaskRepository { // repository  лучше назвать.
-
-    /**
-     * Возвращает ответ на создание задания.
-     * @param levelTask уровень задания.
-     * @param points баллы за задание.
-     * @param textTask текст задания.
-     * @param textAnswer ответы на задание, если их нет заполнить как угодно.
-     * @param correctAnswer номера верных ответов через пробел.
-     * @return ответ на создание.
-     */
-    String createTask(String levelTask, String points, String textTask, String textAnswer, String correctAnswer);
-
-    /**
-     * Удаляет задание по номеру.
-     * @param numberTask номер задания.
-     * @return ответ на удаление.
-     */
-    String removeTaskByNumber(String numberTask);
+public interface ITaskRepository {
 
     /**
      * Возвращает задание по его номеру.

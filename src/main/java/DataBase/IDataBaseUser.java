@@ -7,8 +7,9 @@ public interface IDataBaseUser {
     /**
      * Добавляет пользователя в базу данных.
      * @param identifier идентификатор добавляемого пользователя.
-     * @param isAdmin флаг администратора (0 - если нет, 1 если да).
+     * @param points очки заработанные пользователем.
      * @param chatId айди чата с пользователем.
+     * @param tasksComplete выполненные задания.
      */
     void addUserToDataBase(String identifier, String chatId, int points, int tasksComplete);
 
@@ -17,12 +18,6 @@ public interface IDataBaseUser {
      * @param identifier идентификатор удаляемого пользователя.
      */
     void removeUserToDataBase(String identifier);
-
-    /**
-     * Возвращает идентификатор администратора.
-     * @return идентификатор администратора.
-     */
-    String getAdminIdentifier();
 
     int getAllCompleteTaskUser(String identifier);
 
